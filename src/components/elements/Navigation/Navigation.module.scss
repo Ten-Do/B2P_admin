@@ -1,0 +1,45 @@
+@import "../../../styles/colors.scss";
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.link {
+  font-size: 1.125em;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  span {
+    width: 5px;
+    height: 40px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: $success;
+  }
+
+  &__box {
+    background-color: $transparencyOrSuccess;
+    border-radius: 7px;
+    max-width: 250px;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    margin: 0px auto;
+    padding: 15px 10px;
+
+    i {
+      margin-right: 15px;
+    }
+
+    &::before {
+      content: "";
+      // border-left: $success 7px solid;
+      width: 20px;
+      color: $success;
+    }
+  }
+}
