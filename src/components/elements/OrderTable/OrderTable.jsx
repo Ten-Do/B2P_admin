@@ -8,6 +8,8 @@ import { getStatusSeverity } from "../../../utils/utils";
 
 import { orderList } from "./service";
 import VisaLogo from "../../../assets/visa-logo.svg";
+import MasterCardLogo from "../../../assets/mcard-logo.svg";
+import MirLogo from "../../../assets/mir-logo.svg";
 import IconItem from "../../UI/IconItem/IconItem";
 import classes from "./OrderTable.module.scss";
 
@@ -51,8 +53,6 @@ export default function BasicFilterDemo() {
 
   // Templates
   const amountTemplate = (rowData) => {
-    console.log(rowData);
-
     return new Intl.NumberFormat("ru-RU", {
       style: "currency",
       currency: "RUB",
@@ -66,7 +66,14 @@ export default function BasicFilterDemo() {
   };
 
   const paymentSystemTemplate = (rowData) => {
-    return <IconItem src={VisaLogo} title={rowData.paymentSystem} />;
+    const imgLink =
+      rowData.paymentSystem === "VISA"
+        ? VisaLogo
+        : rowData.paymentSystem === "MasterCard"
+        ? MasterCardLogo
+        : MirLogo;
+
+    return <IconItem src={imgLink} title={rowData.paymentSystem} />;
   };
 
   const statusTemplate = (rowData) => {

@@ -7,6 +7,7 @@
 }
 
 .link {
+   
   font-size: 1.125em;
   font-weight: 500;
   display: flex;
@@ -18,11 +19,11 @@
     height: 40px;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
-    background-color: $success;
   }
 
   &__box {
-    background-color: $transparencyOrSuccess;
+    transition: 0.1s;
+    // background-color: $white;
     border-radius: 7px;
     max-width: 250px;
     flex-grow: 1;
@@ -37,8 +38,22 @@
 
     &::before {
       content: "";
-      // border-left: $success 7px solid;
       width: 20px;
+    }
+  }
+}
+
+.active {
+  span {
+    background-color: $success;
+  }
+
+  .link {
+   
+
+    &__box {
+      background-color: $transparencyOrSuccess;
+      font-weight: 700;
       color: $success;
     }
   }
