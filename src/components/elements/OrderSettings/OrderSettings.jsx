@@ -1,13 +1,25 @@
-import React, { useState } from "react";
-import Title from "../../UI/Title/Title";
+import { useRef } from "react";
 
-import InputSwitch from "../../UI/InputSwitch_old/InputSwitch";
+import { Toast } from "primereact/toast";
+import { Button } from "primereact/button";
+import FeeTable from "../FeeTable/FeeTable";
+
+import Title from "../../UI/Title/Title";
+import InputSwitch from "../../UI/InputSwitch/InputSwitch";
 
 import classes from "./OrderSettings.module.scss";
 
 export default function OrderSettings() {
-  const [checked, setChecked] = useState(false);
-  console.log(checked);
+  const toast = useRef(null);
+
+  const handleButtonClick = () => {
+    toast.current.show({
+      severity: "success",
+      summary: "Успех",
+      detail: "Измененения сохранены",
+      life: 2000,
+    });
+  };
 
   return (
     <section className={classes.settings}>
@@ -19,7 +31,7 @@ export default function OrderSettings() {
         </li>
 
         <li>
-          <span>Показывать альтернативные способы</span>
+          <span>Показывать альтернативные способы оплаты</span>
           <InputSwitch />
         </li>
 
@@ -28,6 +40,18 @@ export default function OrderSettings() {
           <InputSwitch />
         </li>
       </ul>
+
+      <div className={classes.settings__table}>
+        <h4>Таблица комиссий</h4>
+        <FeeTable />
+      </div>
+
+      <Toast ref={toast} />
+      <Button
+        label="Сохранить"
+        className="p-button-success"
+        onClick={handleButtonClick}
+      />
     </section>
   );
 }

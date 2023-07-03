@@ -1,0 +1,16 @@
+.item {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+
+    &__img {
+        img {
+            max-width: 50px;
+            max-height: 32px;
+        }
+    }
+
+    &__title {
+        font-size: 1em;
+    }
+}

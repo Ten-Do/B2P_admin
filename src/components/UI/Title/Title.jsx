@@ -7,3 +7,8 @@ export default function Title({value}) {
     <h3 className={classes.title}>{value}</h3>
   )
 }
+
+
+
+
+
