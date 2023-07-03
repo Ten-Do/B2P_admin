@@ -1,0 +1,28 @@
+.header {
+  font-size: 1em;
+  font-weight: 400;
+  padding: 40px 0px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  column-gap: 30px;
+  width: fit-content;
+  margin-left: auto;
+
+  &__username {
+    span {
+      font-weight: 600;
+    }
+  }
+
+  &__img {
+    user-select: none;
+    img {
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+    }
+  }
+}
