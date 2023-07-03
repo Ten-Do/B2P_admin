@@ -5,7 +5,7 @@ import classes from './IconItem.module.scss';
 export default function IconItem({src, title}) {
   return (
     <div className={classes.item}>
-        <img className={classes.item__img} src={src} alt="" />
+        <img className={classes.item__img} src={src} alt="Avatar" />
         <h6 className={classes.item__title}>{title}</h6>
     </div>
   )
