@@ -1,119 +1,149 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { FilterMatchMode } from "primereact/api";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import { Dropdown } from "primereact/dropdown";
-import { feeItems } from "./service";
-import IconItem from "../../UI/IconItem/IconItem";
+import { Tag } from "primereact/tag";
+import { getStatusSeverity } from "../../../utils/utils";
+
+import { orderList } from "./service";
 import VisaLogo from "../../../assets/visa-logo.svg";
+import IconItem from "../../UI/IconItem/IconItem";
+import classes from "./OrderTable.module.scss";
 
-import classes from "./FeeTable.module.scss";
-
-// in process
-export default function OrderTable() {
-  const [tableRows, setTableRows] = useState([]);
-  const [paymentSystems, setPaymentSystems] = useState([]);
+export default function BasicFilterDemo() {
+  const [orders, setOrders] = useState([]);
+  const [filters, setFilters] = useState({});
+  //   const [loading, setLoading] = useState(true);
+  const [globalFilterValue, setGlobalFilterValue] = useState("");
 
   useEffect(() => {
-    setTableRows(feeItems);
-    setPaymentSystems(feeItems.map((item) => item.paymentSystem));
+    setOrders(orderList);
+    setFilters({
+      global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    });
   }, []);
 
-  const onRowEditComplete = (e) => {
-    const _tableRows = [...tableRows];
-    const { newData, index } = e;
+  const onGlobalFilterChange = (e) => {
+    const value = e.target.value;
+    const _filters = { ...filters };
 
-    _tableRows[index] = newData;
+    _filters["global"].value = value;
 
-    setTableRows(_tableRows);
+    setFilters(_filters);
+    setGlobalFilterValue(value);
   };
 
-  //   const paymentSystemEditor = (options) => {
-  //     return (
-  //       <Dropdown
-  //         value={options.value}
-  //         options={paymentSystems}
-  //         onChange={(e) => options.editorCallback(e.value)}
-  //         placeholder="Select Payment System"
-  //         itemTemplate={(option) => {
-  //           return <IconItem src={VisaLogo} title={option} />;
-  //         }}
-  //       />
-  //     );
-  //   };
+  const renderHeader = () => {
+    return (
+      <div className="flex justify-content-end">
+        <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText
+            value={globalFilterValue}
+            onChange={onGlobalFilterChange}
+            placeholder="Keyword Search"
+          />
+        </span>
+      </div>
+    );
+  };
+
+  // Templates
+  const amountTemplate = (rowData) => {
+    console.log(rowData);
+
+    return new Intl.NumberFormat("ru-RU", {
+      style: "currency",
+      currency: "RUB",
+    }).format(rowData.amount);
+  };
+
+  const feeTemplate = (rowData) => {
+    return new Intl.NumberFormat("en", {
+      style: "percent",
+    }).format(rowData.fee / 100);
+  };
 
   const paymentSystemTemplate = (rowData) => {
     return <IconItem src={VisaLogo} title={rowData.paymentSystem} />;
   };
 
-  const feePercentageEditor = (options) => {
+  const statusTemplate = (rowData) => {
     return (
-      <InputText
-        type="text"
-        value={options.value}
-        onChange={(e) => options.editorCallback(e.target.value)}
+      <Tag
+        value={rowData.state}
+        severity={getStatusSeverity(rowData.state)}
+        style={{ borderRadius: "15px", padding: "5px 10px" }}
       />
     );
   };
 
-  const feePercentageTemplate = (rowData) => {
-    return new Intl.NumberFormat("en", {
-      style: "percent",
-    }).format(rowData.feePercentage / 100);
-  };
-
-  const minBetEditor = (options) => {
-    return (
-      <InputText
-        type="text"
-        value={options.value}
-        onChange={(e) => options.editorCallback(e.target.value)}
-      />
-    );
-  };
-
-  const minBetTemplate = (rowData) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-    }).format(rowData.minBet);
-  };
+  const header = renderHeader();
 
   return (
     <div className={classes.table}>
       <DataTable
-        value={tableRows}
-        editMode="row"
+        value={orders}
+        paginator
+        rows={8}
         dataKey="id"
-        onRowEditComplete={onRowEditComplete}
-        tableStyle={{ minWidth: "20rem" }}
+        filters={filters}
+        // loading={loading}
+        globalFilterFields={[
+          "id",
+          "amount",
+          "fee",
+          "description",
+          "paymentSystem",
+          "state",
+        ]}
+        header={header}
+        emptyMessage="No orders found."
       >
         <Column
-          field="paymentSystem"
-          header="Платежная система"
-          //   editor={(options) => paymentSystemEditor(options)}
+          field="id"
+          header="ID"
+          filterField="id"
+          style={{ minWidth: "3rem", fontWeight: 700 }}
+          sortable
+        />
+        <Column
+          field="amount"
+          header="Amount"
+          filterField="amount"
+          style={{ minWidth: "5rem" }}
+          body={amountTemplate}
+          sortable
+        />
+        <Column
+          field="fee"
+          header="Fee"
+          filterField="fee"
+          style={{ minWidth: "3rem" }}
+          body={feeTemplate}
+          sortable
+        />
+        <Column
+          field="description"
+          header="Description"
+          filterField="description"
+          style={{ minWidth: "12rem" }}
+          sortable
+        />
+        <Column
+          header="Payment System"
+          filterField="paymentSystem"
+          style={{ minWidth: "8rem" }}
           body={paymentSystemTemplate}
-          style={{ width: "20%" }}
-        ></Column>
+        />
         <Column
-          field="feePercentage"
-          header="Процент комиссии"
-          editor={(options) => feePercentageEditor(options)}
-          body={feePercentageTemplate}
-          style={{ width: "20%" }}
-        ></Column>
-        <Column
-          field="minBet"
-          header="Минимальная ставка"
-          editor={(options) => minBetEditor(options)}
-          body={minBetTemplate}
-          style={{ width: "20%" }}
-        ></Column>
-        <Column
-          rowEditor
-          headerStyle={{ width: "10%", minWidth: "8rem" }}
-          bodyStyle={{ textAlign: "center" }}
-        ></Column>
+          field="state"
+          header="State"
+          style={{ minWidth: "8rem" }}
+          body={statusTemplate}
+          sortable
+        />
       </DataTable>
     </div>
   );

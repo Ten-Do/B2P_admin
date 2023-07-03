@@ -23,7 +23,7 @@ export default function OrderSettings() {
 
   return (
     <section className={classes.settings}>
-      <Title value={"Настройки заказа"} />
+      <Title>Настройки заказа</Title>
       <ul className={classes.settings__list}>
         <li>
           <span>Показывать поле "Email" при заказе</span>

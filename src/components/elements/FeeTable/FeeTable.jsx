@@ -11,11 +11,9 @@ import classes from "./FeeTable.module.scss";
 
 export default function FeeTable() {
   const [tableRows, setTableRows] = useState([]);
-  const [paymentSystems, setPaymentSystems] = useState([]);
 
   useEffect(() => {
     setTableRows(feeItems);
-    setPaymentSystems(feeItems.map((item) => item.paymentSystem))
   }, []);
 
   const onRowEditComplete = (e) => {
