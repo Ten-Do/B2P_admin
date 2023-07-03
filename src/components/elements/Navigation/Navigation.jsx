@@ -13,7 +13,7 @@ export default function Navigation() {
     { title: "Order Settings", logo: "pi pi-cog", path: "/settings" },
   ];
 
-  const handleClick = (e, path, index) => {
+  const handleClick = (path, index) => {
     navigate(path);
     setSelectedIndex(index);
   };
@@ -27,7 +27,7 @@ export default function Navigation() {
               ? [classes.link, classes.active].join(" ")
               : classes.link
           }
-          onClick={(e) => handleClick(e, item.path, index)}
+          onClick={() => handleClick(item.path, index)}
           key={index}
         >
           <span></span>
