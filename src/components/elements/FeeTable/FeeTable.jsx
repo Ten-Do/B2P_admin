@@ -5,7 +5,12 @@ import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { feeItems } from "./service";
 import IconItem from "../../UI/IconItem/IconItem";
+
+import { formatNumber } from "../../../utils/utils";
+
 import VisaLogo from "../../../assets/visa-logo.svg";
+import MasterCardLogo from "../../../assets/mcard-logo.svg";
+import MirLogo from "../../../assets/mir-logo.svg";
 
 import classes from "./FeeTable.module.scss";
 
@@ -40,7 +45,13 @@ export default function FeeTable() {
   //   };
 
   const paymentSystemTemplate = (rowData) => {
-    return <IconItem src={VisaLogo} title={rowData.paymentSystem} />;
+    const imgLink =
+      rowData.paymentSystem === "VISA"
+        ? VisaLogo
+        : rowData.paymentSystem === "MasterCard"
+        ? MasterCardLogo
+        : MirLogo;
+    return <IconItem src={imgLink} title={rowData.paymentSystem} />;
   };
 
   const feePercentageEditor = (options) => {
@@ -48,7 +59,7 @@ export default function FeeTable() {
       <InputText
         type="text"
         value={options.value}
-        onChange={(e) => options.editorCallback(e.target.value)}
+        onChange={(e) => options.editorCallback(formatNumber(e.target.value))}
       />
     );
   };
@@ -64,7 +75,7 @@ export default function FeeTable() {
       <InputText
         type="text"
         value={options.value}
-        onChange={(e) => options.editorCallback(e.target.value)}
+        onChange={(e) => options.editorCallback(formatNumber(e.target.value))}
       />
     );
   };
