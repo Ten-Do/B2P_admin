@@ -10,16 +10,17 @@ import VisaLogo from "../../../assets/visa-logo.svg";
 import classes from "./FeeTable.module.scss";
 
 export default function FeeTable() {
-  const [tableRows, setTableRows] = useState(null);
-  const [paymentSystems] = useState(feeItems.map((item) => item.paymentSystem));
+  const [tableRows, setTableRows] = useState([]);
+  const [paymentSystems, setPaymentSystems] = useState([]);
 
   useEffect(() => {
     setTableRows(feeItems);
+    setPaymentSystems(feeItems.map((item) => item.paymentSystem))
   }, []);
 
   const onRowEditComplete = (e) => {
-    let _tableRows = [...tableRows];
-    let { newData, index } = e;
+    const _tableRows = [...tableRows];
+    const { newData, index } = e;
 
     _tableRows[index] = newData;
 
