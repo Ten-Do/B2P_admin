@@ -1,9 +1,19 @@
-import axios from "axios";
-
 const API_URL = "https://path/to/server/api";
 
-const $api = axios.create({
-  baseURL: API_URL,
-});
+const $api = {
+  get: (url) => {
+    return fetch(API_URL + url).then((response) => response.json());
+  },
+  post: (url, data) => {
+    return fetch(API_URL + url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((response) => response.json());
+  },
+  // Add other HTTP methods (PUT, DELETE, etc.) as needed
+};
 
 export default $api;
