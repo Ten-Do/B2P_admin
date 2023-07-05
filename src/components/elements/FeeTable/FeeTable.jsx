@@ -32,20 +32,6 @@ export default function FeeTable() {
     setTableRows(_tableRows);
   };
 
-  //   const paymentSystemEditor = (options) => {
-  //     return (
-  //       <Dropdown
-  //         value={options.value}
-  //         options={paymentSystems}
-  //         onChange={(e) => options.editorCallback(e.value)}
-  //         placeholder="Select Payment System"
-  //         itemTemplate={(option) => {
-  //           return <IconItem src={VisaLogo} title={option} />;
-  //         }}
-  //       />
-  //     );
-  //   };
-
   const skeletonTemplate = () => {
     return <Skeleton height="40px"></Skeleton>;
   };
@@ -87,10 +73,7 @@ export default function FeeTable() {
   };
 
   const minBetTemplate = (rowData) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-    }).format(rowData.minBet);
+    return (<span>{`${rowData.minBet} коп.`}</span>)
   };
 
   return (
@@ -105,7 +88,6 @@ export default function FeeTable() {
         <Column
           field="paymentSystem"
           header="Платежная система"
-          //   editor={(options) => paymentSystemEditor(options)}
           body={isLoading ? skeletonTemplate : paymentSystemTemplate}
           style={{ width: "20%" }}
         ></Column>

@@ -3,21 +3,23 @@
 $toggleSize: 40px;
 $toggleMargin: 10px;
 $toggleLine: 4px;
-$toggleColor: $success;
+$toggleColor: $primaryText;
 $offset: $toggleSize * 0.5;
 
 .sidebar {
-  z-index: 2;
+  z-index: 3;
   width: 360px;
   transition: width 0.3s ease;
   align-self: stretch;
+  height: 100%;
+
 
   &__container {
     background-color: $white;
     width: 360px;
     height: 100vh;
     padding: 40px 0px;
-    height: 100%;
+    height: inherit;
     transition: transform 0.3s ease;
   }
 

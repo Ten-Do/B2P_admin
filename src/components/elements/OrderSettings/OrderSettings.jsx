@@ -25,35 +25,33 @@ export default function OrderSettings() {
 
   return (
     <section className={classes.settings}>
-         <Title>Настройки заказа</Title>
-        <ul className={classes.settings__list}>
-            {isLoading
-                ?
-                    <>
-                        <Skeleton height="31px" width="550px"></Skeleton>
-                        <Skeleton height="31px" width="550px"></Skeleton>
-                        <Skeleton height="31px" width="550px"></Skeleton>
-                    </>
-                
-                :
-                    <>
-                        <li>
-                        <span>Показывать поле "Email" при заказе</span>
-                        <InputSwitch />
-                        </li>
+      <Title>Настройки заказа</Title>
+      <ul className={classes.settings__list}>
+        {isLoading ? (
+          <>
+            <Skeleton height="31px" width="550px"></Skeleton>
+            <Skeleton height="31px" width="550px"></Skeleton>
+            <Skeleton height="31px" width="550px"></Skeleton>
+          </>
+        ) : (
+          <>
+            <li>
+              <span>Показывать поле "Email" при заказе</span>
+              <InputSwitch />
+            </li>
 
-                        <li>
-                        <span>Показывать альтернативные способы оплаты</span>
-                        <InputSwitch />
-                        </li>
+            <li>
+              <span>Показывать альтернативные способы оплаты</span>
+              <InputSwitch />
+            </li>
 
-                        <li>
-                        <span>Показывать поле "Email" при заказе</span>
-                        <InputSwitch />
-                        </li>
-                    </>
-            }
-        </ul>
+            <li>
+              <span>Показывать поле "Email" при заказе</span>
+              <InputSwitch />
+            </li>
+          </>
+        )}
+      </ul>
 
       <div className={classes.settings__table}>
         <h4>Таблица комиссий</h4>

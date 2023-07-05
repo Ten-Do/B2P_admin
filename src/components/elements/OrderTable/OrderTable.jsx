@@ -58,10 +58,7 @@ export default function BasicFilterDemo() {
   };
 
   const amountTemplate = (rowData) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-    }).format(rowData.amount);
+    return (<span>{`${rowData.amount} коп.`}</span>)
   };
 
   const feeTemplate = (rowData) => {
@@ -101,7 +98,6 @@ export default function BasicFilterDemo() {
         rows={8}
         dataKey="id"
         filters={filters}
-        // loading={loading}
         globalFilterFields={[
           "id",
           "amount",
@@ -112,6 +108,10 @@ export default function BasicFilterDemo() {
         ]}
         header={header}
         emptyMessage="No orders found."
+        scrollable
+        showGridlines
+        stateStorage="session"
+        stateKey="dt-state-demo-local"
       >
         <Column
           field="id"
