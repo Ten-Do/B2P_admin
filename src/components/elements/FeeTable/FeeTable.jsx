@@ -3,6 +3,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
+import { Skeleton } from "primereact/skeleton";
 import { feeItems } from "./service";
 import IconItem from "../../UI/IconItem/IconItem";
 
@@ -16,6 +17,7 @@ import classes from "./FeeTable.module.scss";
 
 export default function FeeTable() {
   const [tableRows, setTableRows] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setTableRows(feeItems);
@@ -43,6 +45,10 @@ export default function FeeTable() {
   //       />
   //     );
   //   };
+
+  const skeletonTemplate = () => {
+    return <Skeleton height="40px"></Skeleton>;
+  };
 
   const paymentSystemTemplate = (rowData) => {
     const imgLink =
@@ -100,27 +106,28 @@ export default function FeeTable() {
           field="paymentSystem"
           header="Платежная система"
           //   editor={(options) => paymentSystemEditor(options)}
-          body={paymentSystemTemplate}
+          body={isLoading ? skeletonTemplate : paymentSystemTemplate}
           style={{ width: "20%" }}
         ></Column>
         <Column
           field="feePercentage"
           header="Процент комиссии"
           editor={(options) => feePercentageEditor(options)}
-          body={feePercentageTemplate}
+          body={isLoading ? skeletonTemplate : feePercentageTemplate}
           style={{ width: "20%" }}
         ></Column>
         <Column
           field="minBet"
           header="Минимальная ставка"
           editor={(options) => minBetEditor(options)}
-          body={minBetTemplate}
+          body={isLoading ? skeletonTemplate : minBetTemplate}
           style={{ width: "20%" }}
         ></Column>
         <Column
           rowEditor
           headerStyle={{ width: "10%", minWidth: "8rem" }}
           bodyStyle={{ textAlign: "center" }}
+          body={isLoading && skeletonTemplate}
         ></Column>
       </DataTable>
     </div>

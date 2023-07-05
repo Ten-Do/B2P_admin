@@ -4,8 +4,9 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Tag } from "primereact/tag";
-import { getStatusSeverity } from "../../../utils/utils";
+import { Skeleton } from "primereact/skeleton";
 
+import { getStatusSeverity } from "../../../utils/utils";
 import { orderList } from "./service";
 import VisaLogo from "../../../assets/visa-logo.svg";
 import MasterCardLogo from "../../../assets/mcard-logo.svg";
@@ -16,7 +17,7 @@ import classes from "./OrderTable.module.scss";
 export default function BasicFilterDemo() {
   const [orders, setOrders] = useState([]);
   const [filters, setFilters] = useState({});
-  //   const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
 
   useEffect(() => {
@@ -52,6 +53,10 @@ export default function BasicFilterDemo() {
   };
 
   // Templates
+  const skeletonTemplate = () => {
+    return <Skeleton height="60px"></Skeleton>;
+  };
+
   const amountTemplate = (rowData) => {
     return new Intl.NumberFormat("ru-RU", {
       style: "currency",
@@ -114,13 +119,14 @@ export default function BasicFilterDemo() {
           filterField="id"
           style={{ minWidth: "3rem", fontWeight: 700 }}
           sortable
+          body={isLoading && skeletonTemplate}
         />
         <Column
           field="amount"
           header="Amount"
           filterField="amount"
           style={{ minWidth: "5rem" }}
-          body={amountTemplate}
+          body={isLoading ? skeletonTemplate : amountTemplate}
           sortable
         />
         <Column
@@ -128,7 +134,7 @@ export default function BasicFilterDemo() {
           header="Fee"
           filterField="fee"
           style={{ minWidth: "3rem" }}
-          body={feeTemplate}
+          body={isLoading ? skeletonTemplate : feeTemplate}
           sortable
         />
         <Column
@@ -137,19 +143,20 @@ export default function BasicFilterDemo() {
           filterField="description"
           style={{ minWidth: "12rem" }}
           sortable
+          body={isLoading && skeletonTemplate}
         />
         <Column
           header="Payment System"
           filterField="paymentSystem"
           style={{ minWidth: "8rem" }}
-          body={paymentSystemTemplate}
+          body={isLoading ? skeletonTemplate : paymentSystemTemplate}
         />
         <Column
           field="state"
           header="State"
           style={{ minWidth: "8rem" }}
-          body={statusTemplate}
           sortable
+          body={isLoading ? skeletonTemplate : statusTemplate}
         />
       </DataTable>
     </div>
