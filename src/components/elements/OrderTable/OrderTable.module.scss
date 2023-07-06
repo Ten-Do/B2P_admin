@@ -2,4 +2,11 @@
 
 .table {
   box-shadow: $boxShadowPrimary 0px 7px 29px 0px;
+  font-size: 16px;
+}
+
+@media (max-width: 1350px) {
+ .table {
+    font-size: 10px;
+ } 
 }

@@ -1,8 +1,7 @@
 .settings {
-    display: flex;
-    flex-direction: column;
-    row-gap: 90px;
-    
+  display: flex;
+  flex-direction: column;
+  row-gap: 90px;
 
   & > button {
     box-shadow: none !important;
@@ -10,7 +9,7 @@
   }
 
   &__list {
-    font-size: 1.2em;
+    font-size: 1.05em;
     font-weight: 400;
     display: flex;
     flex-direction: column;
@@ -33,9 +32,21 @@
 
   &__table {
     h4 {
-        font-size: 1.25em;
-        font-weight: 500;
-        margin-bottom: 21px;
+      font-size: 1.25em;
+      font-weight: 500;
+      margin-bottom: 21px;
+    }
+  }
+}
+
+@media (max-width: 1300px) {
+  .settings {
+    &__list {
+        li {
+            & > :last-child {
+                height: 100px;
+              }
+        }
     }
   }
 }

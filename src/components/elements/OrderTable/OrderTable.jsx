@@ -4,9 +4,10 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Tag } from "primereact/tag";
-import { getStatusSeverity } from "../../../utils/utils";
+import { Skeleton } from "primereact/skeleton";
 
-import { orderList } from "./service";
+import { getStatusSeverity } from "../../../utils/utils";
+import useOrdersStore from "../../../stores/orders";
 import VisaLogo from "../../../assets/visa-logo.svg";
 import MasterCardLogo from "../../../assets/mcard-logo.svg";
 import MirLogo from "../../../assets/mir-logo.svg";
@@ -14,13 +15,21 @@ import IconItem from "../../UI/IconItem/IconItem";
 import classes from "./OrderTable.module.scss";
 
 export default function BasicFilterDemo() {
-  const [orders, setOrders] = useState([]);
   const [filters, setFilters] = useState({});
-  //   const [loading, setLoading] = useState(true);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
 
+  const { orders, isLoading, fetchOrders } = useOrdersStore((state) => ({
+    orders: state.orders,
+    isLoading: state.isLoading,
+    fetchOrders: state.fetchOrders,
+  }));
+
+  const getOrders = async () => {
+    await fetchOrders();
+  };
+
   useEffect(() => {
-    setOrders(orderList);
+    getOrders();
     setFilters({
       global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     });
@@ -52,11 +61,12 @@ export default function BasicFilterDemo() {
   };
 
   // Templates
+  const skeletonTemplate = () => {
+    return <Skeleton height="28px"></Skeleton>;
+  };
+
   const amountTemplate = (rowData) => {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-    }).format(rowData.amount);
+    return <span>{`${rowData.amount} коп.`}</span>;
   };
 
   const feeTemplate = (rowData) => {
@@ -66,12 +76,15 @@ export default function BasicFilterDemo() {
   };
 
   const paymentSystemTemplate = (rowData) => {
-    const imgLink =
-      rowData.paymentSystem === "VISA"
-        ? VisaLogo
-        : rowData.paymentSystem === "MasterCard"
-        ? MasterCardLogo
-        : MirLogo;
+    let imgLink;
+
+    if (rowData.payment_system === "VISA") {
+      imgLink = VisaLogo;
+    } else if (rowData.payment_system === "MasterCard") {
+      imgLink = MasterCardLogo;
+    } else {
+      imgLink = MirLogo;
+    }
 
     return <IconItem src={imgLink} title={rowData.paymentSystem} />;
   };
@@ -81,7 +94,7 @@ export default function BasicFilterDemo() {
       <Tag
         value={rowData.state}
         severity={getStatusSeverity(rowData.state)}
-        style={{ borderRadius: "15px", padding: "5px 10px" }}
+        style={{ borderRadius: "15px", padding: "5px 10px", fontSize: "0.8em" }}
       />
     );
   };
@@ -93,10 +106,10 @@ export default function BasicFilterDemo() {
       <DataTable
         value={orders}
         paginator
+        paginatorClassName={classes.paginator}
         rows={8}
         dataKey="id"
         filters={filters}
-        // loading={loading}
         globalFilterFields={[
           "id",
           "amount",
@@ -107,20 +120,26 @@ export default function BasicFilterDemo() {
         ]}
         header={header}
         emptyMessage="No orders found."
+        scrollable
+        showGridlines
+        stateStorage="session"
+        stateKey="dt-state-demo-local"
+        style={{ fontSize: "1em" }}
       >
         <Column
           field="id"
           header="ID"
           filterField="id"
-          style={{ minWidth: "3rem", fontWeight: 700 }}
+          style={{ minWidth: "2rem", fontWeight: 700 }}
           sortable
+          body={isLoading && skeletonTemplate}
         />
         <Column
           field="amount"
           header="Amount"
           filterField="amount"
           style={{ minWidth: "5rem" }}
-          body={amountTemplate}
+          body={isLoading ? skeletonTemplate : amountTemplate}
           sortable
         />
         <Column
@@ -128,7 +147,7 @@ export default function BasicFilterDemo() {
           header="Fee"
           filterField="fee"
           style={{ minWidth: "3rem" }}
-          body={feeTemplate}
+          body={isLoading ? skeletonTemplate : feeTemplate}
           sortable
         />
         <Column
@@ -137,19 +156,20 @@ export default function BasicFilterDemo() {
           filterField="description"
           style={{ minWidth: "12rem" }}
           sortable
+          body={isLoading && skeletonTemplate}
         />
         <Column
           header="Payment System"
           filterField="paymentSystem"
           style={{ minWidth: "8rem" }}
-          body={paymentSystemTemplate}
+          body={isLoading ? skeletonTemplate : paymentSystemTemplate}
         />
         <Column
           field="state"
           header="State"
           style={{ minWidth: "8rem" }}
-          body={statusTemplate}
           sortable
+          body={isLoading ? skeletonTemplate : statusTemplate}
         />
       </DataTable>
     </div>

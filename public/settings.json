@@ -1,0 +1,12 @@
+[
+    {
+       "email": true, 
+       "alternative_payment": false,
+       "commissions": [
+            { "id": 1, "payment_system": "VISA", "fee": 5, "min_bet": 219},
+            { "id": 2, "payment_system": "MasterCard", "fee": 11, "min_bet": 10},
+            { "id": 3, "payment_system": "Мир", "fee": 9, "min_bet": 150}
+       ]
+    }
+]
+  

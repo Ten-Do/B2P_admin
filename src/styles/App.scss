@@ -4,12 +4,13 @@
 /* FONTS */
 @import url("https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap");
 
-/* MEDIA */
-// @media (max-width: 1350px) {
-//   .app {
-//     padding: 0px 25px;
-//   }
-// }
+html,
+body,
+#root,
+.App
+ {
+  min-height: 100%;
+}
 
 #root {
   font-family: Barlow, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -17,8 +18,6 @@
     "Segoe UI Symbol";
   background-color: $backgroundColor;
   color: $primaryText;
-  //   height: 100vh;
-  font-size: 16px;
 
   a:visited {
     color: inherit;
@@ -28,4 +27,18 @@
 .App {
   display: flex;
   align-items: stretch;
+  font-size: 16px;
+}
+
+/* MEDIA */
+@media (max-width: 1300px) {
+  .App {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 700px) {
+  .App {
+    font-size: 13px;
+  }
 }
