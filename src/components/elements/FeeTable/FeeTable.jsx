@@ -89,7 +89,8 @@ export default function FeeTable() {
         editMode="row"
         dataKey="id"
         onRowEditComplete={onRowEditComplete}
-        tableStyle={{ minWidth: "20rem" }}
+        tableStyle={{ minWidth: "20rem"}}
+        style={{fontSize: "1em" }}
       >
         <Column
           field="payment_system"
@@ -113,7 +114,7 @@ export default function FeeTable() {
         ></Column>
         <Column
           rowEditor
-          headerStyle={{ width: "10%", minWidth: "8rem" }}
+          headerStyle={{ width: "5%", minWidth: "2rem" }}
           bodyStyle={{ textAlign: "center" }}
           body={isLoading && skeletonTemplate}
         ></Column>

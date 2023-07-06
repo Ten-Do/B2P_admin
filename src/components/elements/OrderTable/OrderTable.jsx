@@ -94,7 +94,7 @@ export default function BasicFilterDemo() {
       <Tag
         value={rowData.state}
         severity={getStatusSeverity(rowData.state)}
-        style={{ borderRadius: "15px", padding: "5px 10px" }}
+        style={{ borderRadius: "15px", padding: "5px 10px", fontSize: "0.8em" }}
       />
     );
   };
@@ -124,12 +124,13 @@ export default function BasicFilterDemo() {
         showGridlines
         stateStorage="session"
         stateKey="dt-state-demo-local"
+        style={{ fontSize: "1em" }}
       >
         <Column
           field="id"
           header="ID"
           filterField="id"
-          style={{ minWidth: "3rem", fontWeight: 700 }}
+          style={{ minWidth: "2rem", fontWeight: 700 }}
           sortable
           body={isLoading && skeletonTemplate}
         />
