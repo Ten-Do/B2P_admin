@@ -14,10 +14,9 @@ const useSettingsStore = create(
     error: "",
     fetchSettings: async () => {
       set({ isLoading: true });
-      const response = await $api.get("/settings.json");
-
-      set({ settings: response[0] });
       try {
+        const response = await $api.get("/settings.json");
+        set({ settings: response[0] });
       } catch (error) {
         set({ error: error.message });
       } finally {
