@@ -9,9 +9,9 @@ const useOrdersStore = create(devtools((set) => ({
   error: "",
   fetchOrders: async () => {
     set({ isLoading: true });
-    const response = await $api.get("/orders.json")
-    set({orders: response})
     try {
+      const response = await $api.get("/orders.json")
+      set({orders: response})
     } catch (error) {
       set({ error: error.message });
     } finally {
