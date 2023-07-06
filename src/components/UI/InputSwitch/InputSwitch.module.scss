@@ -1,9 +1,11 @@
 .switch {
   position: relative;
   display: inline-block;
-  width: 54px;
+  width: 100%;
   min-width: 54px;
+  max-width: 54px;
   height: 30.6px;
+  max-height: 30.6px;
 
   input {
     opacity: 0;

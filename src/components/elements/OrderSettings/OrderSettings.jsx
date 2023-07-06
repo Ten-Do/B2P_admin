@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import { Skeleton } from "primereact/skeleton";
-
+import useSettingsStore from "../../../stores/settings";
 import FeeTable from "../FeeTable/FeeTable";
 import Title from "../../UI/Title/Title";
 import InputSwitch from "../../UI/InputSwitch/InputSwitch";
@@ -12,7 +12,19 @@ import classes from "./OrderSettings.module.scss";
 
 export default function OrderSettings() {
   const toast = useRef(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading, settings, fetchSettings } = useSettingsStore((state) => ({
+    isLoading: state.isLoading,
+    settings: state.settings,
+    fetchSettings: state.fetchSettings
+  }));
+  
+  const fetchOrderSettings = async () => {
+    await fetchSettings();
+  }
+
+  useEffect(() => {
+    fetchOrderSettings()
+  }, []);
 
   const handleButtonClick = () => {
     toast.current.show({
@@ -34,20 +46,20 @@ export default function OrderSettings() {
             <Skeleton height="31px" width="550px"></Skeleton>
           </>
         ) : (
-          <>
+          <> 
             <li>
               <span>Показывать поле "Email" при заказе</span>
-              <InputSwitch />
+              <InputSwitch isChecked={settings.email}/>
             </li>
 
             <li>
               <span>Показывать альтернативные способы оплаты</span>
-              <InputSwitch />
+              <InputSwitch isChecked={settings.alternative_payment}/>
             </li>
 
             <li>
               <span>Показывать поле "Email" при заказе</span>
-              <InputSwitch />
+              <InputSwitch isChecked={settings.email}/>
             </li>
           </>
         )}

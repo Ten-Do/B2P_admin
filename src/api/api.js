@@ -1,17 +1,20 @@
-const API_URL = "https://path/to/server/api";
+// const API_URL = "https://path/to/server/api";
+const API_URL = process.env.PUBLIC_URL;
 
 const $api = {
-  get: (url) => {
-    return fetch(API_URL + url).then((response) => response.json());
+  get: async (url) => {
+    const response = await fetch(API_URL + url);
+    return await response.json();
   },
-  post: (url, data) => {
-    return fetch(API_URL + url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }).then((response) => response.json());
+  post: async (url, data) => {
+    const response = await fetch(API_URL + url, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+      });
+      return await response.json();
   },
   // Add other HTTP methods (PUT, DELETE, etc.) as needed
 };

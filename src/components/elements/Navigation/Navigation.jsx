@@ -6,28 +6,22 @@ import classes from "./Navigation.module.scss";
 
 export default function Navigation() {
   const navigate = useNavigate();
-  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const navigationLinks = [
     { title: "Dashboard", logo: "pi pi-home", path: "/" },
     { title: "Order Settings", logo: "pi pi-cog", path: "/settings" },
   ];
 
-  const handleClick = (e, path, index) => {
-    navigate(path);
-    setSelectedIndex(index);
-  };
-
   return (
     <ul className={classes.navigation}>
       {navigationLinks.map((item, index) => (
         <li
           className={
-            index === selectedIndex
+            item.path === window.location.pathname
               ? [classes.link, classes.active].join(" ")
               : classes.link
           }
-          onClick={(e) => handleClick(e, item.path, index)}
+          onClick={() => navigate(item.path)}
           key={index}
         >
           <span></span>

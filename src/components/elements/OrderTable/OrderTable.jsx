@@ -7,7 +7,7 @@ import { Tag } from "primereact/tag";
 import { Skeleton } from "primereact/skeleton";
 
 import { getStatusSeverity } from "../../../utils/utils";
-import { orderList } from "./service";
+import useOrdersStore from "../../../stores/orders";
 import VisaLogo from "../../../assets/visa-logo.svg";
 import MasterCardLogo from "../../../assets/mcard-logo.svg";
 import MirLogo from "../../../assets/mir-logo.svg";
@@ -15,13 +15,21 @@ import IconItem from "../../UI/IconItem/IconItem";
 import classes from "./OrderTable.module.scss";
 
 export default function BasicFilterDemo() {
-  const [orders, setOrders] = useState([]);
   const [filters, setFilters] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
 
+  const { orders, isLoading, fetchOrders } = useOrdersStore((state) => ({
+    orders: state.orders,
+    isLoading: state.isLoading,
+    fetchOrders: state.fetchOrders,
+  }));
+
+  const getOrders = async () => {
+    await fetchOrders();
+  };
+
   useEffect(() => {
-    setOrders(orderList);
+    getOrders();
     setFilters({
       global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     });
@@ -54,11 +62,11 @@ export default function BasicFilterDemo() {
 
   // Templates
   const skeletonTemplate = () => {
-    return <Skeleton height="60px"></Skeleton>;
+    return <Skeleton height="28px"></Skeleton>;
   };
 
   const amountTemplate = (rowData) => {
-    return (<span>{`${rowData.amount} коп.`}</span>)
+    return <span>{`${rowData.amount} коп.`}</span>;
   };
 
   const feeTemplate = (rowData) => {
@@ -68,12 +76,15 @@ export default function BasicFilterDemo() {
   };
 
   const paymentSystemTemplate = (rowData) => {
-    const imgLink =
-      rowData.paymentSystem === "VISA"
-        ? VisaLogo
-        : rowData.paymentSystem === "MasterCard"
-        ? MasterCardLogo
-        : MirLogo;
+    let imgLink;
+
+    if (rowData.payment_system === "VISA") {
+      imgLink = VisaLogo;
+    } else if (rowData.payment_system === "MasterCard") {
+      imgLink = MasterCardLogo;
+    } else {
+      imgLink = MirLogo;
+    }
 
     return <IconItem src={imgLink} title={rowData.paymentSystem} />;
   };
@@ -95,6 +106,7 @@ export default function BasicFilterDemo() {
       <DataTable
         value={orders}
         paginator
+        paginatorClassName={classes.paginator}
         rows={8}
         dataKey="id"
         filters={filters}
