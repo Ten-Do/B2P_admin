@@ -78,9 +78,9 @@ export default function BasicFilterDemo() {
   const paymentSystemTemplate = (rowData) => {
     let imgLink;
 
-    if (rowData.payment_system === "VISA") {
+    if (rowData.paymentSystem === "VISA") {
       imgLink = VisaLogo;
-    } else if (rowData.payment_system === "MasterCard") {
+    } else if (rowData.paymentSystem === "MasterCard") {
       imgLink = MasterCardLogo;
     } else {
       imgLink = MirLogo;
