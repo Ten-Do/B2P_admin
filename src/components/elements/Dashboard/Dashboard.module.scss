@@ -1,10 +1,18 @@
 @import "../../../styles/colors.scss";
 
 .dashboard {
+    &__cards {
+        display: flex;
+        column-gap: 20px;
+        row-gap: 15px;
+        flex-wrap: wrap;
+        margin-bottom: 100px;
+    }
+
   &__greeting {
     font-weight: 500;
     font-size: 1.125em;
     color: $optionalText;
-    margin: 10px 0px 100px 0px;
+    margin-bottom:100px;
   }
 }

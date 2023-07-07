@@ -1,0 +1,28 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  row-gap: 100px;
+
+  & > button {
+    box-shadow: none !important;
+    align-self: flex-start;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      row-gap: 5px;
+      max-width: 340px;
+      width: 100%;
+
+      input {
+        width: 100%;
+      }
+    }
+  }
+}

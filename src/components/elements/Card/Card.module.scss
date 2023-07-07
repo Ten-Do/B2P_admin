@@ -1,0 +1,53 @@
+@import "../../../styles/colors.scss";
+
+.card {
+  position: relative;
+  top: 0;
+  left: 0;
+  transition: all 0.5s;
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  max-width: 260px;
+  padding: 2vw 1vw;
+  box-shadow: $boxShadowPrimary;
+  border-radius: 14px;
+  height: 152px;
+  //   min-height: 100px;
+  //   height: 100%;
+  align-items: center;
+
+  &:hover {
+    box-shadow: $boxShadowPrimary, 2px 2px white, 9px 9px $success;
+    top: -4px;
+    left: -4px;
+  }
+
+  &__block {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+  }
+
+  &__img {
+    img {
+      width: 75px;
+      height: 75px;
+    }
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+  }
+
+  &__number {
+    font-size: 1.7em;
+    font-weight: 700;
+  }
+
+  &__label {
+    font-weight: 500;
+  }
+}

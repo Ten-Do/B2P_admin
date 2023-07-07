@@ -3,19 +3,26 @@ import classes from "./Header.module.scss";
 
 import cat from "../../../assets/cat.jpg";
 import useAuthStore from "../../../stores/auth";
+import { useNavigate } from "react-router-dom";
+import { adminPaths } from "../AppRouter/routes";
 
 export default function Header() {
+    const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
   const setAuth = useAuthStore((state) => state.setAuth);
   const [menuVisible, setMenuVisible] = useState(false);
 
   const handleSettingsClick = (e) => {
+    setMenuVisible(!menuVisible);
+    navigate(adminPaths.PROFILE_SETTINGS);
     e.stopPropagation();
   };
 
   const handleLogoutClick = (e) => {
+    setMenuVisible(!menuVisible);
     e.stopPropagation();
     setAuth(false);
+    //! logout();
   };
 
   const handleProfileClick = (e) => {

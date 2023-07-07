@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 import "primeicons/primeicons.css";
 import classes from "./Navigation.module.scss";
+import { adminPaths } from "../AppRouter/routes";
 
 export default function Navigation() {
   const navigate = useNavigate();
 
   const navigationLinks = [
-    { title: "Dashboard", logo: "pi pi-home", path: "/" },
-    { title: "Order Settings", logo: "pi pi-cog", path: "/settings" },
+    { title: "Dashboard", logo: "pi pi-home", path: adminPaths.DASHBOARD },
+    { title: "Order Settings", logo: "pi pi-cog", path: adminPaths.SETTINGS },
   ];
 
   return (
