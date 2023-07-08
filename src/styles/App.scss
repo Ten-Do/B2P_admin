@@ -18,6 +18,7 @@ body,
     "Segoe UI Symbol";
   background-color: $backgroundColor;
   color: $primaryText;
+  font-size: 16px;
 
   a:visited {
     color: inherit;
@@ -27,7 +28,6 @@ body,
 .App {
   display: flex;
   align-items: stretch;
-  font-size: 16px;
 }
 
 .loader {
@@ -36,13 +36,13 @@ body,
 
 /* MEDIA */
 @media (max-width: 1300px) {
-  .App {
+  #root {
     font-size: 14px;
   }
 }
 
 @media (max-width: 700px) {
-  .App {
+  #root {
     font-size: 13px;
   }
 }

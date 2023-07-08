@@ -79,7 +79,7 @@ export default function FeeTable() {
   };
 
   const minBetTemplate = (rowData) => {
-    return <span>{`${rowData.min_bet} коп.`}</span>;
+    return <span>{`${rowData.min_bet ? rowData.min_bet : "0"} коп.`}</span>;
   };
 
   return (

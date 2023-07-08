@@ -4,13 +4,9 @@ import { API_ENDPOINTS } from "../api/apiEndpoints";
 
 const useAuthStore = create((set) => ({
   isAuth: true,
-  user: { name: "Arthur", email: "" },
+  user: { name: "Arthur", email: "Arthur1203@yandex.ru" },
   isLoading: false,
   setAuth: (flag) => set(() => ({ isAuth: flag })),
-  changeUserName: (username) => {
-    set({ user: { name: username } });
-    //! put запрос на сервер
-  },
   login: async (email, password) => {
     try {
       const response = await $api.post(API_ENDPOINTS.LOGIN, {

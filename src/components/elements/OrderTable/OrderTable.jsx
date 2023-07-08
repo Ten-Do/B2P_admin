@@ -101,6 +101,26 @@ export default function BasicFilterDemo() {
 
   const header = renderHeader();
 
+  if (isLoading && orders.length === 0) {
+    console.log("skeleton");
+    
+    return (
+        <div className={classes.skeleton}>
+        <Skeleton height="70px"></Skeleton>
+        <Skeleton height="50px"></Skeleton>
+        <Skeleton height="50px"></Skeleton>
+        <Skeleton height="50px"></Skeleton>
+        <Skeleton height="50px"></Skeleton>
+        <Skeleton height="50px"></Skeleton>
+        <Skeleton height="50px"></Skeleton>
+        <Skeleton height="50px"></Skeleton>
+        <Skeleton height="50px"></Skeleton>
+        <Skeleton height="50px"></Skeleton>
+        <Skeleton height="70px"></Skeleton>
+        </div>
+    );
+  }
+
   return (
     <div className={classes.table}>
       <DataTable
@@ -122,8 +142,6 @@ export default function BasicFilterDemo() {
         emptyMessage="No orders found."
         scrollable
         showGridlines
-        stateStorage="session"
-        stateKey="dt-state-demo-local"
         style={{ fontSize: "1em" }}
       >
         <Column

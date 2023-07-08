@@ -3,10 +3,17 @@
 .table {
   box-shadow: $borderColor 0px 7px 29px 0px;
   font-size: 16px;
+  overflow: scroll;
 }
 
 @media (max-width: 1350px) {
  .table {
     font-size: 10px;
  } 
+}
+
+.skeleton {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
 }

@@ -1,20 +1,12 @@
 export const getStatusSeverity = (status) => {
-  switch (status) {
-    case "Registred":
-      return "info";
+    const statuses = {
+        "Registred": "info",
+        "Authorized": "warning",
+        "Completed": "success",
+        "Cancelled": "danger",
+    }
 
-    case "Authorized":
-      return "warning";
-
-    case "Completed":
-      return "success";
-
-    case "Cancelled":
-      return "danger";
-
-    default:
-      return "danger";
-  }
+    return statuses[status];
 };
 
 export const formatNumber = (number) => {
