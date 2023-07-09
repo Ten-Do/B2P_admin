@@ -6,72 +6,69 @@ import { Password } from "primereact/password";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import useAuthStore from "../../../stores/auth";
+import { useForm } from "react-hook-form";
+import { formatAmount } from "../../../utils/utils";
+import MyInput from "../../UI/MyInput/MyInput";
+import { loginValidation, passwordValidation } from "./validations";
 
 export default function ProfileSettings() {
   const toast = useRef();
-  const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState("");
-  const { currentName, changeUserName } = useAuthStore((state) => ({
-    currentName: state.user.name,
-    changeUserName: state.changeUserName,
+  const { user } = useAuthStore((state) => ({
+    user: state.user,
   }));
 
-  const handleButtonClick = () => {
-    if (userName) {
-      changeUserName(userName);
-      toast.current.show({
-        severity: "success",
-        summary: "Успех",
-        detail: "Имя изменено",
-        life: 1200,
-      });
-    } else if (password) {
-      // changeUserName(userName);
-      toast.current.show({
-        severity: "success",
-        summary: "Успех",
-        detail: "Пароль изменён",
-        life: 1200,
-      });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    reset,
+  } = useForm({ mode: "onBlur" });
+
+  const onSubmit = (data) => {
+    let detail;
+    if (data.login && data.password) {
+      detail = "Email и пароль изменены";
+    } else if (data.login) {
+      detail = "Email изменён";
+    } else if (data.password) {
+      detail = "Пароль изменён";
+    } else {
+      detail = "Без изменений";
     }
 
-    setPassword("");
-    setUserName("");
+    toast.current.show({
+      severity: "success",
+      summary: "Успех",
+      detail: detail,
+      life: 1200,
+    });
+    reset();
   };
 
   return (
     <div className={classes.settings}>
       <Title>Настройки профиля</Title>
-      <ul className={classes.settings__list}>
-        <li>
-          <span>Сменить Имя</span>
-          <InputText
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-            placeholder={currentName}
-          />
-        </li>
-
-        <li>
-          <span>Сменить пароль</span>
-          <Password
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            toggleMask
-            promptLabel="Введите пароль"
-            weakLabel="Слабый"
-            mediumLabel="Средний"
-            strongLabel="Сильный"
-            placeholder="*****"
-          />
-        </li>
-      </ul>
+      <form
+        className={classes.settings__list}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <MyInput
+          type="text"
+          placeholder={user.email}
+          {...register("login", loginValidation)}
+          label={"Логин"}
+          errors={errors.login ? errors.login.message : ""}
+        />
+        <MyInput
+          type="password"
+          placeholder="********"
+          {...register("password", passwordValidation)}
+          label={"Пароль"}
+          errors={errors.password ? errors.password.message : ""}
+        />
+        <button disabled={!isValid}>Сохранить</button>
+      </form>
       <Toast ref={toast} />
-      <Button
-        label="Сохранить"
-        className="p-button-success"
-        onClick={handleButtonClick}
-      />
     </div>
   );
 }
