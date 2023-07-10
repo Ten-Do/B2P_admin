@@ -1,4 +1,7 @@
+@import "../../../styles/colors.scss";
+
 .item {
+  position: relative;
   display: flex;
   align-items: center;
   column-gap: 10px;
@@ -12,6 +15,17 @@
 
   &__title {
     font-size: 0.9em;
-    font-weight: 600;
+    font-weight: 700;
+    display: none;
+    position: absolute;
+    left: 50px;
+    top: -9px;
+    background-color: rgba(var(--text-secondary), 0.09);
+    border-radius: 11px;
+    padding: 3px 5px;
   }
+}
+
+.visible {
+  display: inline-flex;
 }

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./styles/App.scss";
 import Header from "./components/elements/Header/Header";
 import Sidebar from "./components/elements/Sidebar/Sidebar";
@@ -18,10 +19,27 @@ function App() {
     checkAuth: state.checkAuth,
   }));
 
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  const setHtmlAttribute = (attribute, value) => {
+    document.documentElement.setAttribute(attribute, value);
+  };
+
+  const changeTheme = () => {
+    setHtmlAttribute("data-theme", !isDarkTheme ? "dark" : "light");
+    localStorage.setItem("theme", !isDarkTheme ? "dark" : "light");
+    setIsDarkTheme(!isDarkTheme);
+  };
+
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      checkAuth();
+    if (localStorage.getItem("theme") === "dark") {
+      setIsDarkTheme(true);
+      setHtmlAttribute("data-theme", "dark");
+    } else {
+      setHtmlAttribute("data-theme", "light");
     }
+
+    if (localStorage.getItem("token")) checkAuth();
   }, []);
 
   if (isLoading) {
@@ -40,7 +58,7 @@ function App() {
     <div className="App">
       <Sidebar />
       <Container>
-        <Header />
+        <Header isDarkTheme={isDarkTheme} changeTheme={changeTheme} />
         <AppRouter />
       </Container>
     </div>

@@ -11,19 +11,24 @@ import InputSwitch from "../../UI/InputSwitch/InputSwitch";
 import classes from "./OrderSettings.module.scss";
 
 export default function OrderSettings() {
-  const toast = useRef(null);
   const { isLoading, settings, fetchSettings } = useSettingsStore((state) => ({
     isLoading: state.isLoading,
     settings: state.settings,
-    fetchSettings: state.fetchSettings
+    fetchSettings: state.fetchSettings,
   }));
-  
+  const toast = useRef(null);
+  const [emailChecked, setEmailChecked] = useState(false);
+  const [paymentChecked, setPaymentChecked] = useState(false);
+  //   const [emailChecked, setEmailChecked] = useState(settings.email);
+
   const fetchOrderSettings = async () => {
     await fetchSettings();
-  }
+  };
 
   useEffect(() => {
-    fetchOrderSettings()
+    fetchOrderSettings();
+    setEmailChecked(settings.email);
+    setPaymentChecked(settings.alternative_payment);
   }, []);
 
   const handleButtonClick = () => {
@@ -46,20 +51,29 @@ export default function OrderSettings() {
             <Skeleton height="31px" width="550px"></Skeleton>
           </>
         ) : (
-          <> 
+          <>
             <li>
               <span>Показывать поле "Email" при заказе</span>
-              <InputSwitch isChecked={settings.email}/>
+              <InputSwitch
+                isChecked={emailChecked}
+                onChange={() => setEmailChecked(!emailChecked)}
+              />
             </li>
 
             <li>
               <span>Показывать альтернативные способы оплаты</span>
-              <InputSwitch isChecked={settings.alternative_payment}/>
+              <InputSwitch
+                isChecked={paymentChecked}
+                onChange={() => setPaymentChecked(!paymentChecked)}
+              />
             </li>
 
             <li>
               <span>Показывать поле "Email" при заказе</span>
-              <InputSwitch isChecked={settings.email}/>
+              <InputSwitch
+                isChecked={emailChecked}
+                onChange={() => setEmailChecked(!emailChecked)}
+              />
             </li>
           </>
         )}

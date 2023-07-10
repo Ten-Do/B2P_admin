@@ -1,18 +1,24 @@
 @import "../../../styles/colors.scss";
 
 .dashboard {
-    &__cards {
-        display: flex;
-        column-gap: 20px;
-        row-gap: 15px;
-        flex-wrap: wrap;
-        margin-bottom: 100px;
-    }
+  &__cards {
+    display: flex;
+    column-gap: 20px;
+    row-gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 100px;
+  }
 
   &__greeting {
     font-weight: 500;
     font-size: 1.125em;
-    color: $optionalText;
-    margin-bottom:100px;
+    color: var(--text-secondary);
+    margin-bottom: 100px;
   }
+}
+
+.table-title {
+  font-size: 1.18em;
+  font-weight: 500;
+  margin-bottom: 21px;
 }

@@ -4,7 +4,6 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Tag } from "primereact/tag";
-import { Skeleton } from "primereact/skeleton";
 
 import { getStatusSeverity } from "../../../utils/utils";
 import useOrdersStore from "../../../stores/orders";
@@ -53,17 +52,14 @@ export default function BasicFilterDemo() {
           <InputText
             value={globalFilterValue}
             onChange={onGlobalFilterChange}
-            placeholder="Keyword Search"
+            placeholder="Поиск..."
+            style={{fontSize: "1.1em"}}
           />
         </span>
       </div>
     );
   };
 
-  // Templates
-  const skeletonTemplate = () => {
-    return <Skeleton height="28px"></Skeleton>;
-  };
 
   const amountTemplate = (rowData) => {
     return <span>{`${rowData.amount} коп.`}</span>;
@@ -101,26 +97,6 @@ export default function BasicFilterDemo() {
 
   const header = renderHeader();
 
-  if (isLoading && orders.length === 0) {
-    console.log("skeleton");
-    
-    return (
-        <div className={classes.skeleton}>
-        <Skeleton height="70px"></Skeleton>
-        <Skeleton height="50px"></Skeleton>
-        <Skeleton height="50px"></Skeleton>
-        <Skeleton height="50px"></Skeleton>
-        <Skeleton height="50px"></Skeleton>
-        <Skeleton height="50px"></Skeleton>
-        <Skeleton height="50px"></Skeleton>
-        <Skeleton height="50px"></Skeleton>
-        <Skeleton height="50px"></Skeleton>
-        <Skeleton height="50px"></Skeleton>
-        <Skeleton height="70px"></Skeleton>
-        </div>
-    );
-  }
-
   return (
     <div className={classes.table}>
       <DataTable
@@ -140,24 +116,23 @@ export default function BasicFilterDemo() {
         ]}
         header={header}
         emptyMessage="No orders found."
-        scrollable
         showGridlines
-        style={{ fontSize: "1em" }}
+        style={{ fontSize: "1em", minHeight: "724px"}}
+        loading={isLoading}
       >
         <Column
           field="id"
           header="ID"
           filterField="id"
-          style={{ minWidth: "2rem", fontWeight: 700 }}
+          style={{ minWidth: "3.5rem", maxWidth: "3.5rem", fontWeight: 700 }}
           sortable
-          body={isLoading && skeletonTemplate}
         />
         <Column
           field="amount"
           header="Amount"
           filterField="amount"
           style={{ minWidth: "5rem" }}
-          body={isLoading ? skeletonTemplate : amountTemplate}
+          body={amountTemplate}
           sortable
         />
         <Column
@@ -165,7 +140,7 @@ export default function BasicFilterDemo() {
           header="Fee"
           filterField="fee"
           style={{ minWidth: "3rem" }}
-          body={isLoading ? skeletonTemplate : feeTemplate}
+          body={feeTemplate}
           sortable
         />
         <Column
@@ -174,20 +149,19 @@ export default function BasicFilterDemo() {
           filterField="description"
           style={{ minWidth: "12rem" }}
           sortable
-          body={isLoading && skeletonTemplate}
         />
         <Column
           header="Payment System"
           filterField="paymentSystem"
-          style={{ minWidth: "8rem" }}
-          body={isLoading ? skeletonTemplate : paymentSystemTemplate}
+          style={{ minWidth: "4.2rem", maxWidth: "4.2rem" }}
+          body={paymentSystemTemplate}
         />
         <Column
           field="state"
           header="State"
-          style={{ minWidth: "8rem" }}
+          style={{ minWidth: "5rem", maxWidth: "5rem" }}
           sortable
-          body={isLoading ? skeletonTemplate : statusTemplate}
+          body={statusTemplate}
         />
       </DataTable>
     </div>

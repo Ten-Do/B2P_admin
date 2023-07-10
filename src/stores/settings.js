@@ -7,7 +7,7 @@ const useSettingsStore = create(
   devtools((set) => ({
     settings: {
       email: false,
-      alternative_payment: false,
+      alternative_payment: true,
       commisions: [],
     },
     isLoading: false,

@@ -16,8 +16,8 @@ body,
   font-family: Barlow, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
-  background-color: $backgroundColor;
-  color: $primaryText;
+  background-color: var(--background);
+  color: var(--text-primary);
   font-size: 16px;
 
   a:visited {

@@ -3,7 +3,7 @@
 $toggleSize: 30px;
 $toggleMargin: 10px;
 $toggleLine: 4px;
-$toggleColor: $primaryText;
+$toggleColor: var(--text-primary);
 $offset: $toggleSize * 0.5;
 
 .sidebar {
@@ -14,7 +14,7 @@ $offset: $toggleSize * 0.5;
   min-height: 100%;
 
   &__container {
-    background-color: $white;
+    background-color: var(--background-secondary);
     width: 360px;
     min-height: 100%;
     padding: 40px 0px;

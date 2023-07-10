@@ -1,12 +1,11 @@
-import React from 'react';
+import { useState } from "react";
 
-import classes from './IconItem.module.scss';
+import classes from "./IconItem.module.scss";
 
-export default function IconItem({src, title}) {
+export default function IconItem({ src, title }) {
   return (
     <div className={classes.item}>
-        <img className={classes.item__img} src={src} alt="Avatar" />
-        <h6 className={classes.item__title}>{title}</h6>
+      <img className={classes.item__img} src={src} title={title} alt="Avatar" />
     </div>
-  )
+  );
 }

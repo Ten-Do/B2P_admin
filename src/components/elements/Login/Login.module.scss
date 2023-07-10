@@ -2,8 +2,8 @@
 
 .wrapper {
   height: 100vh;
-  width: 100%;
-  padding: 5vh 0px;
+  width: 100vw;
+  padding: 5vh 5px;
   margin: 0px 10px;
 }
 
@@ -13,9 +13,9 @@
     max-width: 550px;
     display: flex;
     flex-direction: column;
-    row-gap: 50px;
+    row-gap: 25px;
     justify-content: center;
-    box-shadow: $boxShadowPrimary;
+    box-shadow: var(--box-shadow-primary);
     border-radius: 13px;
 
     padding: 30px 55px;
@@ -30,6 +30,13 @@
 .form {
     display: flex;
     flex-direction: column;
+
+    &__error {
+        height: 25px;
+        color: $error;
+        font-size: 0.95em;
+        margin: 0px 0px 10px 0px;
+    }
   
     &__btn {
         font-size: 1.3em;
@@ -42,13 +49,14 @@
         margin-top: 40px;
         align-self: center;
         cursor: pointer;
+        color: $white;
 
         &:hover {
             background-color: rgba($success, 0.9);
         }
 
         &:disabled {
-            background-color: rgba($success, 0.7);
+            background-color: var(--text-secondary);
         }
     }
 }
