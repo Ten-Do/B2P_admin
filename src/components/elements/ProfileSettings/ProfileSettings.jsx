@@ -16,8 +16,10 @@ import {
 
 export default function ProfileSettings() {
   const toast = useRef();
-  const { user } = useAuthStore((state) => ({
+  const { user, setEmail, setPassword } = useAuthStore((state) => ({
     user: state.user,
+    setEmail: state.setEmail,
+    setPassword: state.setPassword,
   }));
 
   const {
@@ -25,15 +27,19 @@ export default function ProfileSettings() {
     handleSubmit,
     formState: { errors, isValid },
     reset,
-  } = useForm({ mode: "onBlur" });
+  } = useForm({ mode: "onChange" });
 
   const onSubmit = (data) => {
     let detail;
     if (data.login && data.password) {
+      setEmail(data.login);
+      setPassword(data.password);
       detail = "Email и пароль изменены";
     } else if (data.login) {
+      setEmail(data.login);
       detail = "Email изменён";
     } else if (data.password) {
+      setPassword(data.password);
       detail = "Пароль изменён";
     } else {
       detail = "Без изменений";
@@ -43,7 +49,7 @@ export default function ProfileSettings() {
       severity: "success",
       summary: "Успех",
       detail: detail,
-      life: 1200,
+      life: 1100,
     });
     reset();
   };

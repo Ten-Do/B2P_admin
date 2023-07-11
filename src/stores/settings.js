@@ -1,22 +1,34 @@
 import { create } from "zustand";
-import $api from "../api/api";
-import { API_ENDPOINTS } from "../api/apiEndpoints";
 import { devtools } from "zustand/middleware";
+import SettingService from "../services/SettingService";
 
 const useSettingsStore = create(
   devtools((set) => ({
     settings: {
       email: false,
       alternative_payment: true,
-      commisions: [],
+      commissions: [],
     },
     isLoading: false,
     error: "",
+    setSettings: async (settings) => {
+        console.log(settings);
+        
+      try {
+        set({ isLoading: true });
+        set({ settings: settings  });
+        // const response = await SettingService.setSettings(settings);
+      } catch (error) {
+        set({ error: error.message });
+      } finally {
+        set({ isLoading: false });
+      }
+    },
     fetchSettings: async () => {
       try {
         set({ isLoading: true });
-        const response = await $api.get(API_ENDPOINTS.SETTINGS);
-        set({ settings: response[0] });
+        const response = await SettingService.fetchSettings();
+        set({ settings: response.data[0] });
       } catch (error) {
         set({ error: error.message });
       } finally {

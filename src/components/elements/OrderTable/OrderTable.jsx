@@ -53,13 +53,12 @@ export default function BasicFilterDemo() {
             value={globalFilterValue}
             onChange={onGlobalFilterChange}
             placeholder="Поиск..."
-            style={{fontSize: "1.1em"}}
+            style={{ fontSize: "1.1em" }}
           />
         </span>
       </div>
     );
   };
-
 
   const amountTemplate = (rowData) => {
     return <span>{`${rowData.amount} коп.`}</span>;
@@ -117,7 +116,7 @@ export default function BasicFilterDemo() {
         header={header}
         emptyMessage="No orders found."
         showGridlines
-        style={{ fontSize: "1em", minHeight: "724px"}}
+        style={{ fontSize: "1em", minHeight: "724px" }}
         loading={isLoading}
       >
         <Column
@@ -153,13 +152,13 @@ export default function BasicFilterDemo() {
         <Column
           header="Payment System"
           filterField="paymentSystem"
-          style={{ minWidth: "4.2rem", maxWidth: "4.2rem" }}
+          style={{ minWidth: "7rem", maxWidth: "7rem" }}
           body={paymentSystemTemplate}
         />
         <Column
           field="state"
           header="State"
-          style={{ minWidth: "5rem", maxWidth: "5rem" }}
+          style={{ minWidth: "5.7rem", maxWidth: "5.7rem" }}
           sortable
           body={statusTemplate}
         />

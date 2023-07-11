@@ -1,7 +1,6 @@
 import { create } from "zustand";
-import $api from "../api/api";
-import { API_ENDPOINTS } from "../api/apiEndpoints";
 import { devtools } from "zustand/middleware";
+import OrderService from "../services/OrderService";
 
 const useOrdersStore = create(
   devtools((set) => ({
@@ -11,8 +10,8 @@ const useOrdersStore = create(
     fetchOrders: async () => {
       try {
         set({ isLoading: true });
-        const response = await $api.get(API_ENDPOINTS.ORDERS);
-        set({ orders: response });
+        const response = await OrderService.fetchOrders();
+        set({ orders: response.data });
       } catch (error) {
         set({ error: error.message });
       } finally {

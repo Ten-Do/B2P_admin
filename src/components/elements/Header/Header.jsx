@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { adminPaths } from "../AppRouter/routes";
 import InputSwitch from "../../UI/InputSwitch/InputSwitch";
 
-export default function Header({isDarkTheme, changeTheme}) {
-    const navigate = useNavigate();
+export default function Header({ isDarkTheme, changeTheme }) {
+  const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
   const setAuth = useAuthStore((state) => state.setAuth);
   const [menuVisible, setMenuVisible] = useState(false);
@@ -35,7 +35,6 @@ export default function Header({isDarkTheme, changeTheme}) {
     setMenuVisible(false);
   };
 
-
   useEffect(() => {
     document.addEventListener("click", handleDocumentClick);
     return () => document.removeEventListener("click", handleDocumentClick);
@@ -44,7 +43,8 @@ export default function Header({isDarkTheme, changeTheme}) {
   return (
     <header className={classes.header}>
       <div className={classes.profile}>
-        <InputSwitch isChecked={isDarkTheme} onChange={() => changeTheme()}/>
+        <InputSwitch isChecked={isDarkTheme} onChange={() => changeTheme()} />
+        {/* <InputSwitch /> */}
         <h6 className={classes.profile__username}>
           Hello, <span>{user.name}</span>{" "}
         </h6>

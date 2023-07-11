@@ -21,22 +21,23 @@ function App() {
 
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
-  const setHtmlAttribute = (attribute, value) => {
-    document.documentElement.setAttribute(attribute, value);
-  };
-
   const changeTheme = () => {
-    setHtmlAttribute("data-theme", !isDarkTheme ? "dark" : "light");
+    document.documentElement.setAttribute(
+      "data-theme",
+      !isDarkTheme ? "dark" : "light"
+    );
     localStorage.setItem("theme", !isDarkTheme ? "dark" : "light");
     setIsDarkTheme(!isDarkTheme);
   };
 
   useEffect(() => {
-    if (localStorage.getItem("theme") === "dark") {
-      setIsDarkTheme(true);
-      setHtmlAttribute("data-theme", "dark");
+    const currentTheme = localStorage.getItem("theme");
+    if (currentTheme === "dark") {
+      changeTheme();
+    } else if (currentTheme === "light") {
+      document.documentElement.setAttribute("data-theme", currentTheme);
     } else {
-      setHtmlAttribute("data-theme", "light");
+      document.documentElement.setAttribute("data-theme", "light");
     }
 
     if (localStorage.getItem("token")) checkAuth();

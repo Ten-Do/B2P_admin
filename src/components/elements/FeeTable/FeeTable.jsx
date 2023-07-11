@@ -13,7 +13,7 @@ import MirLogo from "../../../assets/mir-logo.svg";
 import classes from "./FeeTable.module.scss";
 import useSettingsStore from "../../../stores/settings";
 
-export default function FeeTable() {
+export default function FeeTable({changeCommission}) {
   const [tableRows, setTableRows] = useState([]);
   const { isLoading, commissions } = useSettingsStore((state) => ({
     isLoading: state.isLoading,
@@ -27,7 +27,8 @@ export default function FeeTable() {
   const onRowEditComplete = (e) => {
     const _tableRows = [...tableRows];
     const { newData, index } = e;
-
+    changeCommission(newData);
+    
     _tableRows[index] = newData;
 
     setTableRows(_tableRows);

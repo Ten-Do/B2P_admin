@@ -11,27 +11,40 @@ import InputSwitch from "../../UI/InputSwitch/InputSwitch";
 import classes from "./OrderSettings.module.scss";
 
 export default function OrderSettings() {
-  const { isLoading, settings, fetchSettings } = useSettingsStore((state) => ({
-    isLoading: state.isLoading,
-    settings: state.settings,
-    fetchSettings: state.fetchSettings,
-  }));
+  const { isLoading, settings, fetchSettings, setSettings } = useSettingsStore(
+    (state) => ({
+      isLoading: state.isLoading,
+      settings: state.settings,
+      fetchSettings: state.fetchSettings,
+      setSettings: state.setSettings,
+    })
+  );
   const toast = useRef(null);
   const [emailChecked, setEmailChecked] = useState(false);
   const [paymentChecked, setPaymentChecked] = useState(false);
-  //   const [emailChecked, setEmailChecked] = useState(settings.email);
+  const [commissions, setCommissions] = useState(settings.commissions);
 
   const fetchOrderSettings = async () => {
     await fetchSettings();
   };
 
-  useEffect(() => {
-    fetchOrderSettings();
-    setEmailChecked(settings.email);
-    setPaymentChecked(settings.alternative_payment);
-  }, []);
+  const changeCommission = (commission) => {
+    const result = settings.commissions.map((item) => {
+      if (item.id === commission.id) {
+        return commission;
+      } else return item;
+    });
+
+    setCommissions(result);
+  };
 
   const handleButtonClick = () => {
+    setSettings({
+      email: emailChecked,
+      alternative_payment: paymentChecked,
+      commissions: commissions.length ? commissions : settings.commissions,
+    });
+
     toast.current.show({
       severity: "success",
       summary: "Успех",
@@ -39,6 +52,12 @@ export default function OrderSettings() {
       life: 2000,
     });
   };
+
+  useEffect(() => {
+    fetchOrderSettings();
+    setEmailChecked(settings.email);
+    setPaymentChecked(settings.alternative_payment);
+  }, []);
 
   return (
     <section className={classes.settings}>
@@ -81,7 +100,7 @@ export default function OrderSettings() {
 
       <div className={classes.settings__table}>
         <h4>Таблица комиссий</h4>
-        <FeeTable />
+        <FeeTable changeCommission={changeCommission} />
       </div>
 
       <Toast ref={toast} />
