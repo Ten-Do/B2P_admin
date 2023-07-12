@@ -83,3 +83,12 @@ $color-hover: var(--background-secondary);
 .visible {
   display: flex;
 }
+
+@media (max-width: 800px) {
+    .profile{
+        column-gap: 15px;
+        &__username {
+            display: none;
+        }
+    }
+  }

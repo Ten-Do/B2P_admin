@@ -1,6 +1,7 @@
 import axios from "axios";
+import { API_ENDPOINTS } from "./apiEndpoints.js";
 export const API_URL = process.env.PUBLIC_URL;
-import { API_ENDPOINTS } from "./apiEndpoints.js"
+
 
 const $api = axios.create({
   withCredentials: true,
@@ -18,7 +19,7 @@ $api.interceptors.response.use((config) => {
 },
     async (error) => {
         const originalRequest = error.config;
-        if (error.response?.status == 401 && error.config && !error.config._isRetry) {
+        if (error.response?.status === 401 && error.config && !error.config._isRetry) {
             originalRequest._isRetry = true;
             try {
                 const response = await axios.get(`${API_URL}/${API_ENDPOINTS.REFRESH_TOKEN}`, { withCredentials: true })
