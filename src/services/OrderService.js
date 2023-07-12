@@ -3,6 +3,6 @@ import { API_ENDPOINTS } from "../api/apiEndpoints";
 
 export default class OrderService {
   static async fetchOrders() {
-    return $api.get(API_ENDPOINTS.ORDERS);
+    return $api.get(API_ENDPOINTS.ORDERS).then((response) => response.data);
   }
 }
