@@ -21,6 +21,7 @@ export default function Dashbord() {
         <Card number={"259"} label={"Customers"}/>
         <Card number={"5000$"} label={"Total Revenue"}/>
       </div>
+      <h5 className={classes['table-title']}>Таблица операций</h5>
       <OrderTable />
     </section>
   );

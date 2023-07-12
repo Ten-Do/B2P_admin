@@ -10,15 +10,13 @@
   width: 100%;
   max-width: 260px;
   padding: 2vw 1vw;
-  box-shadow: $boxShadowPrimary;
+  box-shadow: var(--box-shadow-primary);
   border-radius: 14px;
   height: 152px;
-  //   min-height: 100px;
-  //   height: 100%;
   align-items: center;
 
   &:hover {
-    box-shadow: $boxShadowPrimary, 2px 2px white, 9px 9px $success;
+    box-shadow: var(--box-shadow-primary), 2px 2px var(--background-secondary), 9px 9px $success;
     top: -4px;
     left: -4px;
   }

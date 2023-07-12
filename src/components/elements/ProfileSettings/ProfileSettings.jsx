@@ -9,12 +9,17 @@ import useAuthStore from "../../../stores/auth";
 import { useForm } from "react-hook-form";
 import { formatAmount } from "../../../utils/utils";
 import MyInput from "../../UI/MyInput/MyInput";
-import { loginValidation, passwordValidation } from "./validations";
+import {
+  loginValidation,
+  passwordValidation,
+} from "../../../utils/validations";
 
 export default function ProfileSettings() {
   const toast = useRef();
-  const { user } = useAuthStore((state) => ({
+  const { user, setEmail, setPassword } = useAuthStore((state) => ({
     user: state.user,
+    setEmail: state.setEmail,
+    setPassword: state.setPassword,
   }));
 
   const {
@@ -22,15 +27,19 @@ export default function ProfileSettings() {
     handleSubmit,
     formState: { errors, isValid },
     reset,
-  } = useForm({ mode: "onBlur" });
+  } = useForm({ mode: "onChange" });
 
   const onSubmit = (data) => {
     let detail;
     if (data.login && data.password) {
+      setEmail(data.login);
+      setPassword(data.password);
       detail = "Email и пароль изменены";
     } else if (data.login) {
+      setEmail(data.login);
       detail = "Email изменён";
     } else if (data.password) {
+      setPassword(data.password);
       detail = "Пароль изменён";
     } else {
       detail = "Без изменений";
@@ -40,7 +49,7 @@ export default function ProfileSettings() {
       severity: "success",
       summary: "Успех",
       detail: detail,
-      life: 1200,
+      life: 1100,
     });
     reset();
   };
@@ -57,14 +66,14 @@ export default function ProfileSettings() {
           placeholder={user.email}
           {...register("login", loginValidation)}
           label={"Логин"}
-          errors={errors.login ? errors.login.message : ""}
+          errors={errors.login?.message || ""}
         />
         <MyInput
           type="password"
           placeholder="********"
           {...register("password", passwordValidation)}
           label={"Пароль"}
-          errors={errors.password ? errors.password.message : ""}
+          errors={errors.password?.message || ""}
         />
         <button disabled={!isValid}>Сохранить</button>
       </form>

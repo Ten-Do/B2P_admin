@@ -1,6 +1,15 @@
-@import '../../../styles/colors.scss';
+@import "../../../styles/colors.scss";
 
 .table {
-    box-shadow: $borderColor 0px 7px 29px 0px;
-    max-width: 80rem;
+  box-shadow: var(--box-shadow-primary);
+  max-width: 80rem;
+
+  div,
+  th,
+  td,
+  svg {
+    color: var(--text-primary) !important;
+    background-color: var(--background-secondary) !important;
+    border-color: var(--border-primary) !important;
+  }
 }

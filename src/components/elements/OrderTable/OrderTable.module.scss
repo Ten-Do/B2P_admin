@@ -1,19 +1,30 @@
 @import "../../../styles/colors.scss";
 
 .table {
-  box-shadow: $borderColor 0px 7px 29px 0px;
+  box-shadow: var(--box-shadow-primary);
   font-size: 16px;
-  overflow: scroll;
+  min-height: 590px;
+//   background-color: var(--background-secondary);
+
+  div, th, td, svg{
+    color: var(--text-primary) !important;
+    background-color: var(--background-secondary) !important;
+    border-color: var(--border-primary) !important;
+  }
 }
 
 @media (max-width: 1350px) {
- .table {
+  .table {
     font-size: 10px;
- } 
+  }
 }
 
 .skeleton {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+
+  & > * {
+    background-color: $grey-light !important;
+  }
 }

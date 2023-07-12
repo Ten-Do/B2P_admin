@@ -11,22 +11,40 @@ import InputSwitch from "../../UI/InputSwitch/InputSwitch";
 import classes from "./OrderSettings.module.scss";
 
 export default function OrderSettings() {
+  const { isLoading, settings, fetchSettings, setSettings } = useSettingsStore(
+    (state) => ({
+      isLoading: state.isLoading,
+      settings: state.settings,
+      fetchSettings: state.fetchSettings,
+      setSettings: state.setSettings,
+    })
+  );
   const toast = useRef(null);
-  const { isLoading, settings, fetchSettings } = useSettingsStore((state) => ({
-    isLoading: state.isLoading,
-    settings: state.settings,
-    fetchSettings: state.fetchSettings
-  }));
-  
+  const [emailChecked, setEmailChecked] = useState(false);
+  const [paymentChecked, setPaymentChecked] = useState(false);
+  const [commissions, setCommissions] = useState(settings.commissions);
+
   const fetchOrderSettings = async () => {
     await fetchSettings();
-  }
+  };
 
-  useEffect(() => {
-    fetchOrderSettings()
-  }, []);
+  const changeCommission = (commission) => {
+    const result = settings.commissions.map((item) => {
+      if (item.id === commission.id) {
+        return commission;
+      } else return item;
+    });
+
+    setCommissions(result);
+  };
 
   const handleButtonClick = () => {
+    setSettings({
+      email: emailChecked,
+      alternative_payment: paymentChecked,
+      commissions: commissions.length ? commissions : settings.commissions,
+    });
+
     toast.current.show({
       severity: "success",
       summary: "Успех",
@@ -34,6 +52,12 @@ export default function OrderSettings() {
       life: 2000,
     });
   };
+
+  useEffect(() => {
+    fetchOrderSettings();
+    setEmailChecked(settings.email);
+    setPaymentChecked(settings.alternative_payment);
+  }, []);
 
   return (
     <section className={classes.settings}>
@@ -46,20 +70,29 @@ export default function OrderSettings() {
             <Skeleton height="31px" width="550px"></Skeleton>
           </>
         ) : (
-          <> 
+          <>
             <li>
               <span>Показывать поле "Email" при заказе</span>
-              <InputSwitch isChecked={settings.email}/>
+              <InputSwitch
+                isChecked={emailChecked}
+                onChange={() => setEmailChecked(!emailChecked)}
+              />
             </li>
 
             <li>
               <span>Показывать альтернативные способы оплаты</span>
-              <InputSwitch isChecked={settings.alternative_payment}/>
+              <InputSwitch
+                isChecked={paymentChecked}
+                onChange={() => setPaymentChecked(!paymentChecked)}
+              />
             </li>
 
             <li>
               <span>Показывать поле "Email" при заказе</span>
-              <InputSwitch isChecked={settings.email}/>
+              <InputSwitch
+                isChecked={emailChecked}
+                onChange={() => setEmailChecked(!emailChecked)}
+              />
             </li>
           </>
         )}
@@ -67,7 +100,7 @@ export default function OrderSettings() {
 
       <div className={classes.settings__table}>
         <h4>Таблица комиссий</h4>
-        <FeeTable />
+        <FeeTable changeCommission={changeCommission} />
       </div>
 
       <Toast ref={toast} />

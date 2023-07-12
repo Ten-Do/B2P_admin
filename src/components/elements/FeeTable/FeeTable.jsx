@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import { Dropdown } from "primereact/dropdown";
 import { Skeleton } from "primereact/skeleton";
 import IconItem from "../../UI/IconItem/IconItem";
 import { formatNumber } from "../../../utils/utils";
@@ -14,7 +13,7 @@ import MirLogo from "../../../assets/mir-logo.svg";
 import classes from "./FeeTable.module.scss";
 import useSettingsStore from "../../../stores/settings";
 
-export default function FeeTable() {
+export default function FeeTable({changeCommission}) {
   const [tableRows, setTableRows] = useState([]);
   const { isLoading, commissions } = useSettingsStore((state) => ({
     isLoading: state.isLoading,
@@ -28,14 +27,11 @@ export default function FeeTable() {
   const onRowEditComplete = (e) => {
     const _tableRows = [...tableRows];
     const { newData, index } = e;
-
+    changeCommission(newData);
+    
     _tableRows[index] = newData;
 
     setTableRows(_tableRows);
-  };
-
-  const skeletonTemplate = () => {
-    return <Skeleton height="40px"></Skeleton>;
   };
 
   const paymentSystemTemplate = (rowData) => {
@@ -89,34 +85,34 @@ export default function FeeTable() {
         editMode="row"
         dataKey="id"
         onRowEditComplete={onRowEditComplete}
-        tableStyle={{ minWidth: "20rem"}}
-        style={{fontSize: "1em" }}
+        tableStyle={{ minWidth: "20rem" }}
+        style={{ fontSize: "1em", minHeight: "248px" }}
+        loading={isLoading}
       >
         <Column
           field="payment_system"
           header="Платежная система"
-          body={isLoading ? skeletonTemplate : paymentSystemTemplate}
+          body={paymentSystemTemplate}
           style={{ width: "20%" }}
         ></Column>
         <Column
           field="fee"
           header="Процент комиссии"
           editor={(options) => feePercentageEditor(options)}
-          body={isLoading ? skeletonTemplate : feeTemplate}
+          body={feeTemplate}
           style={{ width: "20%" }}
         ></Column>
         <Column
           field="min_bet"
           header="Минимальная ставка"
           editor={(options) => minBetEditor(options)}
-          body={isLoading ? skeletonTemplate : minBetTemplate}
+          body={minBetTemplate}
           style={{ width: "20%" }}
         ></Column>
         <Column
           rowEditor
           headerStyle={{ width: "5%", minWidth: "2rem" }}
           bodyStyle={{ textAlign: "center" }}
-          body={isLoading && skeletonTemplate}
         ></Column>
       </DataTable>
     </div>
