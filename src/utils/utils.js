@@ -18,3 +18,9 @@ export const formatNumber = (number) => {
     : newNumber.slice(-newNumber.length, -1) +
         newNumber.slice(-1).replace(regex, "");
 };
+
+
+export const getFeeAmount = (fee, amount) => {
+    const result = (amount / 100) * fee;
+    return result.toFixed(2);
+}

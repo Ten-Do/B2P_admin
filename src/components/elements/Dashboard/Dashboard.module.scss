@@ -11,7 +11,7 @@
 
   &__greeting {
     font-weight: 500;
-    font-size: 1.125em;
+    font-size: 0.9em;
     color: var(--text-secondary);
     margin-bottom: 100px;
   }
@@ -40,11 +40,15 @@
     }
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     .dashboard {
       &__cards {
         column-gap: 15px;
         row-gap: 10px;
+      }
+
+      &__cards, &__greeting {
+        margin-bottom: 55px;
       }
     }
   }

@@ -28,7 +28,7 @@ const useSettingsStore = create(
       try {
         set({ isLoading: true });
         const response = await SettingService.fetchSettings();
-        set({ settings: response.data[0] });
+        set({ settings: response[0] });
       } catch (error) {
         set({ error: error.message });
       } finally {

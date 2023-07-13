@@ -22,6 +22,8 @@ export default function OrderSettings() {
   const toast = useRef(null);
   const [emailChecked, setEmailChecked] = useState(false);
   const [paymentChecked, setPaymentChecked] = useState(false);
+  const [showPaymentSystem, setShowPaymentSystem] = useState(false);
+
   const [commissions, setCommissions] = useState(settings.commissions);
 
   const fetchOrderSettings = async () => {
@@ -88,10 +90,10 @@ export default function OrderSettings() {
             </li>
 
             <li>
-              <span>Показывать поле "Email" при заказе</span>
+              <span>Показывать логотипы платежных систем</span>
               <InputSwitch
-                isChecked={emailChecked}
-                onChange={() => setEmailChecked(!emailChecked)}
+                isChecked={showPaymentSystem}
+                onChange={() => setShowPaymentSystem(!showPaymentSystem)}
               />
             </li>
           </>

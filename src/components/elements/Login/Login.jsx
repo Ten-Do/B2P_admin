@@ -19,22 +19,24 @@ export default function Login() {
     handleSubmit,
     watch,
     reset,
+    resetField,
     formState: { errors, isValid, isSubmitted, isSubmitting },
-  } = useForm({ mode: "onBlur" });
-
+  } = useForm({ mode: "onTouched" });
+  
   const watchFields = watch(["login", "password"]);
-  console.log(isSubmitted);
+  
+  const onSubmit = async (data) => {
+    // login(email, password)
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+    await sleep(2000);
 
-  const onSubmit = (data) => {
-    // login(email, password);
-    if (data.login && data.password) {
-      setAuth(true);
+    if (data.login === "admin@mail.ru" && data.password === "admin999") {
+        setAuth(true);
+        reset();
+    } else {
+      resetField("password");
     }
   };
-
-  useEffect(() => {
-    reset();
-  }, [isSubmitted]);
 
   return (
     <div className={classes.wrapper}>
@@ -60,15 +62,14 @@ export default function Login() {
           />
           <button
             type="submit"
-            disabled={!isValid || watchFields.includes("") || isSubmitted}
+            disabled={!isValid || watchFields.includes("") || watchFields.includes(undefined)}
             className={classes.form__btn}
           >
             {isSubmitting ? (
               <ProgressSpinner
-                style={{ width: "10px", height: "10px" }}
+                style={{ width: "23px", height: "23px", position: "absolute", top: "27%", left: "43%"}}
                 strokeWidth="8"
-                fill="var(--surface-ground)"
-                animationDuration=".5s"
+                animationDuration=".8s"
               />
             ) : (
               "Войти"

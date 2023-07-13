@@ -1,11 +1,21 @@
+// $height: 30.6px !default;
+// // $width: 54px;
+// $switch-width: 23.4px !default;
+
+:root {
+  --input-switch-height: 30.6px;
+  --input-switch-width: 54px;
+  --input-switch-size: 23.4px;
+}
+
 .switch {
   position: relative;
   display: inline-block;
   width: 100%;
-  min-width: 54px;
-  max-width: 54px;
-  height: 30.6px;
-  max-height: 30.6px;
+  min-width: var(--input-switch-width);
+  max-width: var(--input-switch-width);
+  height: var(--input-switch-height);
+  max-height: var(--input-switch-height);
 
   input {
     opacity: 0;
@@ -21,9 +31,9 @@
     }
 
     &:checked + .slider::before {
-      -webkit-transform: translateX(23.4px);
-      -ms-transform: translateX(23.4px);
-      transform: translateX(23.4px);
+      -webkit-transform: translateX(var(--input-switch-size));
+      -ms-transform: translateX(var(--input-switch-size));
+      transform: translateX(var(--input-switch-size));
     }
   }
 }
@@ -42,8 +52,8 @@
   &::before {
     position: absolute;
     content: "";
-    height: 23.4px;
-    width: 23.4px;
+    height: var(--input-switch-size);
+    width: var(--input-switch-size);
     left: 3.6px;
     bottom: 3.6px;
     background-color: white;
@@ -54,9 +64,25 @@
 }
 
 .round {
-  border-radius: 30.6px;
+  border-radius: var(--input-switch-height);
 
   &::before {
     border-radius: 50%;
+  }
+}
+
+@media (max-width: 1300px) {
+  :root {
+    --input-switch-width: 48px;
+    --input-switch-height: 26px;
+    --input-switch-size: 19px;
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --input-switch-width: 45px;
+    --input-switch-height: 24px;
+    --input-switch-size: 17px;
   }
 }

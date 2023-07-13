@@ -50,3 +50,9 @@ body,
     font-size: 13px;
   }
 }
+
+@media (max-width: 450px) {
+    #root {
+      font-size: 11px;
+    }
+  }

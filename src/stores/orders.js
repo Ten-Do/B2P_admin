@@ -11,7 +11,7 @@ const useOrdersStore = create(
       try {
         set({ isLoading: true });
         const response = await OrderService.fetchOrders();
-        set({ orders: response.data });
+        set({ orders: response});
       } catch (error) {
         set({ error: error.message });
       } finally {
