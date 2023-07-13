@@ -4,12 +4,23 @@
   box-shadow: var(--box-shadow-primary);
   font-size: 16px;
   min-height: 590px;
-//   background-color: var(--background-secondary);
 
-  div, th, td, svg{
+  div,
+  th,
+  td,
+  svg {
     color: var(--text-primary) !important;
     background-color: var(--background-secondary) !important;
     border-color: var(--border-primary) !important;
+  }
+
+  & div > :nth-child(3) {
+    margin-top: auto;
+  }
+
+  & > div {
+   display: flex;
+   flex-direction: column;
   }
 }
 

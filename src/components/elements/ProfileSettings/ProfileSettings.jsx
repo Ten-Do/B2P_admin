@@ -27,7 +27,7 @@ export default function ProfileSettings() {
     handleSubmit,
     formState: { errors, isValid },
     reset,
-  } = useForm({ mode: "onChange" });
+  } = useForm({ mode: "onTouched" });
 
   const onSubmit = (data) => {
     let detail;

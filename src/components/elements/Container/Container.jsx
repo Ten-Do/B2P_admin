@@ -1,5 +1,3 @@
-import React from "react";
-
 import classes from "./Container.module.scss";
 
 export default function Container({ children, maxWidth = '100%' }) {
