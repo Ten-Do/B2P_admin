@@ -3,8 +3,8 @@
 .wrapper {
   height: 100vh;
   width: 100vw;
-  padding: 5vh 5px;
-  background: var(--background-secondary);
+  padding: 5vh 15px;
+  background: var(--background-neu);
 }
 
 .container {
@@ -12,17 +12,17 @@
   max-width: 550px;
   display: flex;
   flex-direction: column;
-  row-gap: 25px;
+  row-gap: 11px;
   justify-content: center;
-  background: var(--background-primary);
-  box-shadow: var(--box-shadow-secondary);
-  border-radius: 13px;
+  background: var(--background-neu);
+  box-shadow:  var(--box-shadow-neu);
+  border-radius: 30px;
 
   padding: 30px 55px;
 
   h2 {
     text-align: center;
-    font-size: 1.6em;
+    font-size: 1.8em;
     font-weight: 600;
   }
 }
@@ -34,22 +34,25 @@
   &__error {
     height: 25px;
     color: $error;
-    font-size: 0.95em;
-    margin: 0px 0px 10px 0px;
+    font-size: 1em;
+    margin: 5px 0px 10px 0px;
   }
 
   &__btn {
+    position: relative;
     font-size: 1.3em;
     padding: 12px 10px;
     background-color: rgba($success, 0.7);
     transition: all 0.3s;
     width: 100%;
     max-width: 200px;
-    border-radius: 7px;
-    margin-top: 40px;
+    border-radius: 25px;
+    margin-top: 20px;
+    margin-bottom: 10px;
     align-self: center;
     cursor: pointer;
     color: $white;
+    min-height: 48.21px;
 
     &:hover {
       background-color: rgba($success, 0.9);

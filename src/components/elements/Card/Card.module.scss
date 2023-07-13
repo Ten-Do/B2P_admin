@@ -9,14 +9,15 @@
   display: flex;
   width: 100%;
   max-width: 260px;
-  padding: 2vw 1vw;
+  padding: 40px 20px;
   box-shadow: var(--box-shadow-primary);
   border-radius: 14px;
-  height: 152px;
+  max-height: 162px;
   align-items: center;
 
   &:hover {
-    box-shadow: var(--box-shadow-primary), 2px 2px var(--background-secondary), 9px 9px $success;
+    box-shadow: var(--box-shadow-primary), 2px 2px var(--background-secondary),
+      9px 9px $success;
     top: -4px;
     left: -4px;
   }
@@ -28,6 +29,8 @@
   }
 
   &__img {
+    // background-color: red;
+    border-radius: 50%;
     img {
       width: 75px;
       height: 75px;
@@ -47,5 +50,86 @@
 
   &__label {
     font-weight: 500;
+  }
+}
+
+@media (max-width: 1600px) {
+  .card {
+    font-size: 0.7em;
+    &__block {
+      column-gap: 8px;
+    }
+
+    img {
+      width: 62px;
+      height: 62px;
+    }
+    padding: 35px 17px;
+    max-width: 215px;
+  }
+}
+
+@media (max-width: 1300px) {
+  .card {
+    font-size: 0.8em;
+
+    &__column {
+      row-gap: 10px;
+    }
+  }
+}
+
+@media (max-width: 950px) {
+  .card {
+    font-size: 1.1em;
+    padding: 53px 22px;
+    max-width: 290px;
+    img {
+      width: 70px;
+      height: 70px;
+    }
+
+    &__column {
+      row-gap: 10px;
+    }
+  }
+}
+
+@media (max-width: 630px) {
+  .card {
+    font-size: 0.9em;
+    padding: 35px 15px;
+    max-width: 200px;
+    img {
+      width: 55px;
+      height: 55px;
+    }
+
+    &__column {
+      row-gap: 7px;
+    }
+  }
+}
+
+@media (max-width: 435px) {
+  .card {
+    padding: 26px 9px;
+    max-width: 160px;
+    img {
+      width: 48px;
+      height: 48px;
+    }
+  }
+}
+
+@media (max-width: 355px) {
+  .card {
+    font-size: 0.8em;
+    padding: 23px 8px;
+    max-width: 140px;
+    img {
+      width: 40px;
+      height: 40px;
+    }
   }
 }

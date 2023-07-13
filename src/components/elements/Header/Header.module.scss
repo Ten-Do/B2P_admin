@@ -5,7 +5,7 @@ $color-hover: var(--background-secondary);
 .header {
   font-size: 1em;
   font-weight: 400;
-  padding: 40px 0px;
+  padding: 33px 0px;
 }
 
 .profile {
@@ -82,4 +82,13 @@ $color-hover: var(--background-secondary);
 
 .visible {
   display: flex;
+}
+
+@media (max-width: 800px) {
+  .profile {
+    column-gap: 15px;
+    &__username {
+      display: none;
+    }
+  }
 }

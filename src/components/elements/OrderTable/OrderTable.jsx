@@ -5,7 +5,7 @@ import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Tag } from "primereact/tag";
 
-import { getStatusSeverity } from "../../../utils/utils";
+import { getStatusSeverity, getFeeAmount } from "../../../utils/utils";
 import useOrdersStore from "../../../stores/orders";
 import VisaLogo from "../../../assets/visa-logo.svg";
 import MasterCardLogo from "../../../assets/mcard-logo.svg";
@@ -64,10 +64,16 @@ export default function BasicFilterDemo() {
     return <span>{`${rowData.amount} коп.`}</span>;
   };
 
+//   const feeTemplate = (rowData) => {
+//     console.log(rowData);
+    
+//     return new Intl.NumberFormat("en", {
+//       style: "percent",
+//     }).format();
+//   };
+
   const feeTemplate = (rowData) => {
-    return new Intl.NumberFormat("en", {
-      style: "percent",
-    }).format(rowData.fee / 100);
+    return <span>{`${rowData.fee}% (${getFeeAmount(rowData.fee, rowData.amount)} коп.)`}</span>;
   };
 
   const paymentSystemTemplate = (rowData) => {

@@ -11,7 +11,7 @@
 
   &__greeting {
     font-weight: 500;
-    font-size: 1.125em;
+    font-size: 0.9em;
     color: var(--text-secondary);
     margin-bottom: 100px;
   }
@@ -22,3 +22,33 @@
   font-weight: 500;
   margin-bottom: 21px;
 }
+
+@media (max-width: 1500px) {
+  .dashboard {
+    &__greeting,
+    &__cards {
+      margin-bottom: 80px;
+    }
+  }
+}
+
+@media (max-width: 950px) {
+    .dashboard {
+      &__cards {
+        max-width: 600px;
+      }
+    }
+  }
+
+  @media (max-width: 450px) {
+    .dashboard {
+      &__cards {
+        column-gap: 15px;
+        row-gap: 10px;
+      }
+
+      &__cards, &__greeting {
+        margin-bottom: 55px;
+      }
+    }
+  }
