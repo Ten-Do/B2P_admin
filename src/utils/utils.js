@@ -22,5 +22,5 @@ export const formatNumber = (number) => {
 
 export const getFeeAmount = (fee, amount) => {
     const result = (amount / 100) * fee;
-    return result.toFixed(2);
+    return Math.floor(result);
 }
