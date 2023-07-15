@@ -1,0 +1,23 @@
+.settings {
+    &__list {
+      font-size: 1.05em;
+      font-weight: 400;
+      display: flex;
+      flex-direction: column;
+      // align-items: stretch;
+      row-gap: 30px;
+      // margin: 80px 0px 100px 0px;
+  
+      li {
+        //   align-self: stretch;
+        display: flex;
+        align-items: center;
+        column-gap: 50px;
+        //   max-width: 700px;
+  
+        & > span {
+          width: 450px;
+        }
+      }
+    }
+}

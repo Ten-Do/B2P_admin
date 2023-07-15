@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import { Skeleton } from "primereact/skeleton";
 import IconItem from "../../UI/IconItem/IconItem";
 import { formatNumber } from "../../../utils/utils";
 
@@ -10,14 +9,16 @@ import VisaLogo from "../../../assets/visa-logo.svg";
 import MasterCardLogo from "../../../assets/mcard-logo.svg";
 import MirLogo from "../../../assets/mir-logo.svg";
 
-import classes from "./FeeTable.module.scss";
-import useSettingsStore from "../../../stores/settings";
+import useCommissionsStore from "../../../stores/commissions";
 
-export default function FeeTable({changeCommission}) {
+import classes from "./FeeTable.module.scss";
+
+
+export default function FeeTable({setNewCommissions}) {
   const [tableRows, setTableRows] = useState([]);
-  const { isLoading, commissions } = useSettingsStore((state) => ({
+  const { isLoading, commissions } = useCommissionsStore((state) => ({
     isLoading: state.isLoading,
-    commissions: state.settings.commissions,
+    commissions: state.commissions,
   }));
 
   useEffect(() => {
@@ -27,10 +28,10 @@ export default function FeeTable({changeCommission}) {
   const onRowEditComplete = (e) => {
     const _tableRows = [...tableRows];
     const { newData, index } = e;
-    changeCommission(newData);
     
     _tableRows[index] = newData;
 
+    setNewCommissions(_tableRows);
     setTableRows(_tableRows);
   };
 

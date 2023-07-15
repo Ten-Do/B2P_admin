@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_ENDPOINTS } from "./apiEndpoints.js";
+
 export const API_URL = process.env.PUBLIC_URL;
 
 const $api = axios.create({
@@ -9,6 +10,7 @@ const $api = axios.create({
 
 $api.interceptors.request.use((config) => {
   config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
+  config.headers["ngrok-skip-browser-warning"] = true;
   return config;
 });
 

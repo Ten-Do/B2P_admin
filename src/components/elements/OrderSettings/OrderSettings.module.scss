@@ -1,3 +1,5 @@
+@import "../../../styles/colors.scss";
+
 .settings {
   display: flex;
   flex-direction: column;
@@ -39,6 +41,72 @@
   }
 }
 
+.modal {
+    background-color: var(--background-primary);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 18px 15px;
+        font-size: 1.25em;
+        font-weight: 700;
+        // background-color: $white-dark;
+        // box-shadow: var(--box-shadow-primary);
+        // border-bottom: 1px solid var(--text-primary);
+
+        i {
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.05em;
+            margin-right: 5px;
+        }
+    }
+
+    &__body {
+        border-top: var(--border-secondary);
+        // border-bottom: 1px solid rgba($black-coal, 0.3);
+        padding: 20px 15px 35px;
+        max-width: 510px;
+        min-height: 110px;
+        font-size: 1em;
+    }
+
+    &__buttons {
+        padding: 10px 15px;
+        display: flex;
+        justify-content: flex-end;
+        column-gap: 10px;
+        
+        button {
+            cursor: pointer;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9em;
+
+            &:hover {
+                opacity: 0.9;
+            }
+        
+
+            &:nth-child(1) {
+                background-color: rgba( $error, 0.8);
+            }
+
+            &:nth-child(2) {
+                background-color: rgba($success, 0.8);
+            }
+        }
+    }
+}
+
+
+
 @media (max-width: 1300px) {
   .settings {
     &__list {
@@ -54,5 +122,12 @@
 @media (max-width: 1000px) {
   .settings {
     row-gap: 70px;
+  }
+  
+  .modal {
+
+    button {
+        padding: 10px 15px;
+    }
   }
 }

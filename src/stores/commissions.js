@@ -1,32 +1,30 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import SettingsService from "../services/SettingsService";
+import CommissionsService from "../services/CommissionsService";
 
-const useSettingsStore = create(
+
+const useCommissionsStore = create(
   devtools((set) => ({
-    settings: {
-      email: false,
-      alternative_payment: true,
-      store_logo: "",
-    },
+    commissions: [],
     isLoading: false,
     error: "",
-    fetchSettings: async () => {
+    fetchCommissions: async () => {
       try {
         set({ isLoading: true });
-        const response = await SettingsService.fetchSettings();
-        set({ settings: response});
+        const response = await CommissionsService.fetchCommissions();
+        set({ commissions: response});
       } catch (error) {
         set({ error: error.message });
       } finally {
         set({ isLoading: false });
       }
     },
-    setSettings: async (settings) => {
+    setCommissions: async (commissions) => {
+      console.log(commissions);
       try {
         set({ isLoading: true });
-        set({ settings: settings });
-        // const response = await SettingsService.setSettings(settings);
+        set({ commissions: commissions });
+        // const response = await CommissionService.setCommissions(settings);
       } catch (error) {
         set({ error: error.message });
       } finally {
@@ -36,4 +34,4 @@ const useSettingsStore = create(
   }))
 );
 
-export default useSettingsStore;
+export default useCommissionsStore;
