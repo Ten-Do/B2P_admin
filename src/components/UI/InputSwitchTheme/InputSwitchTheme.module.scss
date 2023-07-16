@@ -1,0 +1,73 @@
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.label {
+  background-color: rgb(0, 0, 0);
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  position: relative;
+  height: 23px;
+  width: 47px;
+  transform: scale(1.5);
+
+  i {
+    font-size: 0.8em;
+    font-weight: 600;
+  }
+}
+
+.label .ball {
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  height: 19.5px;
+  width: 19.5px;
+  transform: translateX(0px);
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .label .ball {
+  transform: translateX(23px);
+  background-color: rgb(54, 54, 54);
+}
+
+.moon {
+  color: #f1c40f;
+}
+
+.sun {
+  color: #f39c12;
+}
+
+@media (max-width: 1500px) {
+  .label {
+    height: 21px;
+    width: 43px;
+
+    .ball {
+      height: 17px;
+      width: 17px;
+    }
+  }
+
+  .checkbox:checked + .label .ball {
+    transform: translateX(22px);
+  }
+}
+
+@media (max-width: 800px) {
+    .label {
+        i {
+            font-size: 11.2px;
+        }
+    }
+  }
+

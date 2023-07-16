@@ -4,12 +4,16 @@ import { Skeleton } from "primereact/skeleton";
 import useSettingsStore from "../../../stores/settings";
 
 import classes from "./SettingsRows.module.scss";
+import DropZone from "../../UI/DropZone/DropZone";
+import ModalWindow from "../../UI/ModalWindow/ModalWindow";
 
-export default function SettingsRows({setNewSettings}) {
+export default function SettingsRows({ setNewSettings }) {
   const { isLoading, settings } = useSettingsStore((state) => ({
     isLoading: state.isLoading,
     settings: state.settings,
   }));
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [emailChecked, setEmailChecked] = useState(false);
   const [paymentChecked, setPaymentChecked] = useState(false);
@@ -21,8 +25,11 @@ export default function SettingsRows({setNewSettings}) {
   }, []);
 
   useEffect(() => {
-    setNewSettings({email: emailChecked, alternative_payment: paymentChecked})
-  }, [emailChecked, paymentChecked])
+    setNewSettings({
+      email: emailChecked,
+      alternative_payment: paymentChecked,
+    });
+  }, [emailChecked, paymentChecked]);
 
   if (isLoading)
     return (
@@ -52,12 +59,27 @@ export default function SettingsRows({setNewSettings}) {
       </li>
 
       <li>
-        <span>Показывать логотипы платежных систем</span>
+        <span>Показывать логотип магазина</span>
         <InputSwitch
           isChecked={showPaymentSystem}
           onChange={() => setShowPaymentSystem(!showPaymentSystem)}
         />
       </li>
+      <li>
+        <div>
+          <button
+            className={classes.settings__btn}
+            onClick={() => setModalVisible(true)}
+          >
+            <i className={"pi pi-download"} />
+            <span>Загрузить логотип</span>
+          </button>
+        </div>
+      </li>
+
+      <ModalWindow title={"Выбор изображения"} visible={modalVisible} setVisible={setModalVisible}>
+        <DropZone />
+      </ModalWindow>
     </ul>
   );
 }

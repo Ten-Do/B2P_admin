@@ -68,12 +68,12 @@ export default function OrderSettings() {
         className="p-button-success"
         onClick={() => setModalVisible(true)}
       />
-      <ModalWindow visible={modalVisible} setVisible={setModalVisible}>
+      <ModalWindow title={"Подтвердить изменения"} visible={modalVisible} setVisible={setModalVisible}>
         <div className={classes.modal} onClick={e => e.stopPropagation()}>
-            <div className={classes.modal__header}>
+            {/* <div className={classes.modal__header}>
                 <h5>Подтвердить изменения</h5>
                 <i className="pi pi-times" onClick={() => setModalVisible(false)}></i>
-            </div>
+            </div> */}
             <p className={classes.modal__body}>Настройки заказа были изменены. Вы уверены, что хотите применить их?</p>
             <div className={classes.modal__buttons}>
                 <button onClick={() => setModalVisible(false)}>Отменить</button>

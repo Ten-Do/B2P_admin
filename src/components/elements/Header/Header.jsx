@@ -6,6 +6,7 @@ import useAuthStore from "../../../stores/auth";
 import { useNavigate } from "react-router-dom";
 import { adminPaths } from "../AppRouter/routes";
 import InputSwitch from "../../UI/InputSwitch/InputSwitch";
+import InputSwitchTheme from "../../UI/InputSwitchTheme/InputSwitchTheme";
 
 export default function Header({ isDarkTheme, changeTheme }) {
   const navigate = useNavigate();
@@ -43,8 +44,7 @@ export default function Header({ isDarkTheme, changeTheme }) {
   return (
     <header className={classes.header}>
       <div className={classes.profile}>
-        <InputSwitch isChecked={isDarkTheme} onChange={() => changeTheme()} />
-        {/* <InputSwitch /> */}
+        <InputSwitchTheme isChecked={isDarkTheme} onChange={() => changeTheme()}/>
         <h6 className={classes.profile__username}>
           Hello, <span>{user.name}</span>{" "}
         </h6>

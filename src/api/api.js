@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_ENDPOINTS } from "./apiEndpoints.js";
 
 export const API_URL = process.env.PUBLIC_URL;
+// export const API_URL = "https://cdc6-194-226-199-9.ngrok-free.app/api";
 
 const $api = axios.create({
   withCredentials: true,
