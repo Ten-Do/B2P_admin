@@ -9,10 +9,18 @@ import deliverIcon from "../../../assets/icon_delivered.svg";
 import cancelledIcon from "../../../assets/icon_cancelled.svg";
 
 import classes from "./Dashboard.module.scss";
+import { useEffect, useState } from "react";
+import $api from "../../../api/api";
 
 export default function Dashbord() {
   const user = useAuthStore((state) => state.user);
-
+  const [totals, setTotals] = useState({});
+  useEffect(() => {
+    // const fetchTotals = async () => {};
+    $api.get("/totals").then(({ data }) => {
+      setTotals(data);
+    });
+  }, []);
   return (
     <section className={classes.dashboard}>
       <Title>Dashboard</Title>
@@ -20,10 +28,22 @@ export default function Dashbord() {
         Hi, {user.name}. Welcome back to Admin Panel!
       </h5>
       <div className={classes.dashboard__cards}>
-        <Card number={"25704$"} label={"Total Revenue"} src={bagIcon}/>
-        <Card number={"6389"} label={"Total Orders"} src={deliverIcon}/>
-        <Card number={"2959"} label={"Customers"} src={orderIcon}/>
-        <Card number={"57"} label={"Orders Cancelled"} src={cancelledIcon}/>
+        <Card
+          number={totals.total_revenue}
+          label="Total Revenue"
+          src={bagIcon}
+        />
+        <Card
+          number={totals.total_orders}
+          label="Total Orders"
+          src={deliverIcon}
+        />
+        <Card number={totals.customers} label="Customers" src={orderIcon} />
+        <Card
+          number={totals.orders_cancelled}
+          label="Orders Cancelled"
+          src={cancelledIcon}
+        />
       </div>
       <h5 className={classes["table-title"]}>Таблица операций</h5>
       <OrderTable />

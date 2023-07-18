@@ -5,11 +5,8 @@ import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Tag } from "primereact/tag";
 
-import { getStatusSeverity, getFeeAmount } from "../../../utils/utils";
+import { getStatusSeverity } from "../../../utils/utils";
 import useOrdersStore from "../../../stores/orders";
-import VisaLogo from "../../../assets/visa-logo.svg";
-import MasterCardLogo from "../../../assets/mcard-logo.svg";
-import MirLogo from "../../../assets/mir-logo.svg";
 import IconItem from "../../UI/IconItem/IconItem";
 import classes from "./OrderTable.module.scss";
 
@@ -64,30 +61,34 @@ export default function BasicFilterDemo() {
     return <span>{`${rowData.amount} коп.`}</span>;
   };
 
-//   const feeTemplate = (rowData) => {
-//     console.log(rowData);
-    
-//     return new Intl.NumberFormat("en", {
-//       style: "percent",
-//     }).format();
-//   };
+  //   const feeTemplate = (rowData) => {
+  //     console.log(rowData);
+
+  //     return new Intl.NumberFormat("en", {
+  //       style: "percent",
+  //     }).format();
+  //   };
 
   const feeTemplate = (rowData) => {
-    return <span>{`${rowData.fee}% (${getFeeAmount(rowData.fee, rowData.amount)} коп.)`}</span>;
+    return (
+      <span>{`${rowData.fee} коп. (${parseInt(
+        (rowData.fee / rowData.amount) * 100
+      )}%)`}</span>
+    );
   };
 
-  const paymentSystemTemplate = (rowData) => {
-    let imgLink;
-
-    if (rowData.paymentSystem === "VISA") {
-      imgLink = VisaLogo;
-    } else if (rowData.paymentSystem === "MasterCard") {
-      imgLink = MasterCardLogo;
-    } else {
-      imgLink = MirLogo;
-    }
-
-    return <IconItem src={imgLink} title={rowData.paymentSystem} />;
+  const paymentSystemTemplate = ({ payment_system }) => {
+    return (
+      <IconItem
+        src={
+          process.env.PUBLIC_URL +
+          "/payment_system_logos/" +
+          payment_system +
+          ".svg"
+        }
+        title={payment_system}
+      />
+    );
   };
 
   const statusTemplate = (rowData) => {

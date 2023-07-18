@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import Navigation from "../Navigation/Navigation";
 
 import classes from "./Sidebar.module.scss";

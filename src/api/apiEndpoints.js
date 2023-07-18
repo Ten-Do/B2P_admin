@@ -19,7 +19,7 @@ export const API_ENDPOINTS = {
     PASSWORD: "/password",
   
     SETTINGS: "/settings.json",
-    COMMISSIONS: "/commissions.json",
+    COMMISSIONS: "/payment_systems",
   
-    ORDERS: "/orders.json",
+    ORDERS: "/orders",
   };

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import classes from "./IconItem.module.scss";
 
 export default function IconItem({ src, title }) {

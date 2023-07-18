@@ -5,16 +5,11 @@ import { InputText } from "primereact/inputtext";
 import IconItem from "../../UI/IconItem/IconItem";
 import { formatNumber } from "../../../utils/utils";
 
-import VisaLogo from "../../../assets/visa-logo.svg";
-import MasterCardLogo from "../../../assets/mcard-logo.svg";
-import MirLogo from "../../../assets/mir-logo.svg";
-
 import useCommissionsStore from "../../../stores/commissions";
 
 import classes from "./FeeTable.module.scss";
 
-
-export default function FeeTable({setNewCommissions}) {
+export default function FeeTable({ setNewCommissions }) {
   const [tableRows, setTableRows] = useState([]);
   const { isLoading, commissions } = useCommissionsStore((state) => ({
     isLoading: state.isLoading,
@@ -28,25 +23,25 @@ export default function FeeTable({setNewCommissions}) {
   const onRowEditComplete = (e) => {
     const _tableRows = [...tableRows];
     const { newData, index } = e;
-    
+
     _tableRows[index] = newData;
 
     setNewCommissions(_tableRows);
     setTableRows(_tableRows);
   };
 
-  const paymentSystemTemplate = (rowData) => {
-    let imgLink;
-
-    if (rowData.payment_system === "VISA") {
-      imgLink = VisaLogo;
-    } else if (rowData.payment_system === "MasterCard") {
-      imgLink = MasterCardLogo;
-    } else {
-      imgLink = MirLogo;
-    }
-
-    return <IconItem src={imgLink} title={rowData.payment_system} />;
+  const paymentSystemTemplate = ({ payment_system }) => {
+    return (
+      <IconItem
+        src={
+          process.env.PUBLIC_URL +
+          "/payment_system_logos/" +
+          payment_system +
+          ".svg"
+        }
+        title={payment_system}
+      />
+    );
   };
 
   const feePercentageEditor = (options) => {
