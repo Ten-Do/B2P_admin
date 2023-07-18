@@ -29,7 +29,7 @@
   }
 
   &__img {
-    // background-color: red;
+    user-select: none;
     border-radius: 50%;
     img {
       width: 75px;

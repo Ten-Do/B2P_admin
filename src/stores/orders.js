@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import OrderService from "../services/OrderService";
+import OrdersService from "../services/OrdersService";
 
 const useOrdersStore = create(
   devtools((set) => ({
@@ -10,7 +10,7 @@ const useOrdersStore = create(
     fetchOrders: async () => {
       try {
         set({ isLoading: true });
-        const response = await OrderService.fetchOrders();
+        const response = await OrdersService.fetchOrders();
         set({ orders: response});
       } catch (error) {
         set({ error: error.message });

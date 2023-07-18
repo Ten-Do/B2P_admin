@@ -1,0 +1,44 @@
+@import "../../../styles/colors.scss";
+
+.dropzone {
+  width: 60vw;
+  height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  padding: 5px 10px;
+
+  &__box {
+    padding: 100px 70px;
+    border: 2px dashed var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+
+    p {
+      font-size: 1.9em;
+      &:nth-child(2) {
+        text-align: center;
+      }
+    }
+  }
+
+  &__btn {
+    user-select: none;
+    align-self: center;
+    width: 100%;
+    max-width: 190px;
+    background-color: $blue;
+    color: $white;
+    cursor: pointer;
+    font-size: 0.8em;
+    padding: 15px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+}
+
+.active {
+  background-color: rgba($blue, 0.4);
+}

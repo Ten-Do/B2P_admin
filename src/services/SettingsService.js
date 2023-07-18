@@ -9,6 +9,6 @@ export default class SettingService {
   static async setSettings(settings) {
     return $api
       .put(API_ENDPOINTS.SETTINGS, settings)
-      .then((response) => response.data);
+      .then((response) => response.data[0]);
   }
 }
